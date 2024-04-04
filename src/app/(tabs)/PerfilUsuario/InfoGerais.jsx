@@ -1,20 +1,50 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Tabs } from "expo-router";
 import Botoes from "../../../../components/Botoes";
+import Header from "../../../../components/Header";
+import { LinearGradient } from "expo-linear-gradient";
+import Colors from "../../../../constants/Colors";
+import JanelaAtual from "../../../../components/JanelaAtual";
+import FormularioGeral from "../../../../components/Formularios/FormularioGeral";
 
 const InfoGerais = () => {
   return (
-    <>
-      <Text>Info Gerais</Text>
-      <Botoes
-        texto="Próximo"
-        urlAnterior={""}
-        urlProximo="PerfilUsuario/Fisico"
-        ativo={true}
-      />
-    </>
+    <LinearGradient
+      colors={[Colors.grdienteInicio, Colors.gradienteFim]}
+      style={styles.containerGlobal}
+    >
+      <View style={styles.container}>
+        <Header ativo={true} texto="Naum Marcirio" />
+        <JanelaAtual titulo="Gerais" />
+        <FormularioGeral />
+        <View style={styles.botao}>
+          <Botoes
+            texto="Próximo"
+            urlAnterior={""}
+            urlProximo="PerfilUsuario/Fisico"
+            ativo={true}
+          />
+        </View>
+      </View>
+    </LinearGradient>
   );
 };
+const styles = StyleSheet.create({
+  containerGlobal: {
+    flex: 1,
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
+  botao: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: 70,
+  },
+});
 export default InfoGerais;

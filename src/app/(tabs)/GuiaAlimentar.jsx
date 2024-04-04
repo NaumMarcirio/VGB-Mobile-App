@@ -1,13 +1,43 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import Header from "../../../components/Header";
+import Colors from "../../../constants/Colors";
+import Botoes from "../../../components/Botoes";
+import { Entypo } from "@expo/vector-icons";
 
 const GuiaAlimentar = () => {
   return (
-    <>
-      <Text>GUIA ALIMENTAR</Text>
-    </>
+    <LinearGradient
+      colors={[Colors.grdienteInicio, Colors.gradienteFim]}
+      style={styles.containerGlobal}
+    >
+      <View style={styles.container}>
+        <Header ativo={true} texto="Naum Marcirio" />
+        <Botoes
+          texto="Gerar Semana"
+          urlAnterior={""}
+          urlProximo="PerfilUsuario/Fisico"
+          ativo={false}
+          padding={100}
+        />
+        <Entypo name="dots-three-horizontal" size={24} color="white" />
+      </View>
+    </LinearGradient>
   );
 };
+const styles = StyleSheet.create({
+  containerGlobal: {
+    flex: 1,
+    alignItems: "center",
+  },
+  container: {
+    flex: 1,
+    width: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default GuiaAlimentar;

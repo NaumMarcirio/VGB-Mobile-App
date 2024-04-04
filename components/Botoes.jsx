@@ -1,25 +1,29 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Button, Pressable } from "react-native";
 import Colors from "../constants/Colors";
-const Botoes = ({ texto, urlProximo, urlAnterior, ativo }) => {
+const Botoes = ({ texto, urlProximo, urlAnterior, ativo, padding, dados }) => {
   const router = useRouter();
+
+  const paddingStyle = padding
+    ? { paddingHorizontal: padding }
+    : { paddingHorizontal: 40 };
   return (
     <View style={styles.container}>
       {ativo && (
-        <TouchableOpacity
+        <Pressable
           onPress={() => router.push(`/${urlAnterior}`)}
           style={styles.botaoAnterior}
         >
           <Text style={styles.textoBotaoAnterior}>Voltar</Text>
-        </TouchableOpacity>
+        </Pressable>
       )}
-      <TouchableOpacity
+      <Pressable
         onPress={() => router.push(`/${urlProximo}`)}
-        style={styles.botaoProximo}
+        style={[styles.botaoProximo, paddingStyle]}
       >
         <Text style={styles.textoBotaoProximo}>{texto}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
@@ -39,7 +43,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
-    paddingHorizontal: 40,
   },
   textoBotaoProximo: {
     fontSize: 16,
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
   textoBotaoAnterior: {
     fontSize: 16,
     fontFamily: "KodChasanMedium",
-    color: Colors.pretoBase,
+    color: Colors.brancoBase,
   },
 });
 
