@@ -15,14 +15,16 @@ const GuiaAlimentar = () => {
     >
       <View style={styles.container}>
         <Header ativo={true} texto="Naum Marcirio" />
-        <Botoes
-          texto="Gerar Semana"
-          urlAnterior={""}
-          urlProximo="PerfilUsuario/Fisico"
-          ativo={false}
-          padding={100}
-        />
-        <Entypo name="dots-three-horizontal" size={24} color="white" />
+        <View style={styles.containerBotao}>
+          <Botoes
+            texto="Gerar Semana"
+            urlAnterior={""}
+            urlProximo="PerfilUsuario/Fisico"
+            ativo={false}
+            padding={100}
+          />
+          <Entypo name="dots-three-horizontal" size={24} color="white" />
+        </View>
       </View>
     </LinearGradient>
   );
@@ -35,8 +37,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "80%",
-    justifyContent: "center",
     alignItems: "center",
+  },
+  containerBotao: {
+    alignItems: "center",
+    gap: 12,
+    flex: 1,
+    justifyContent: "center",
   },
 });
 

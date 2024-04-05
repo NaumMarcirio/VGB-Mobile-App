@@ -17,14 +17,6 @@ const InfoGerais = () => {
         <Header ativo={true} texto="Naum Marcirio" />
         <JanelaAtual titulo="Gerais" />
         <FormularioGeral />
-        <View style={styles.botao}>
-          <Botoes
-            texto="Próximo"
-            urlAnterior={""}
-            urlProximo="PerfilUsuario/Fisico"
-            ativo={true}
-          />
-        </View>
       </View>
     </LinearGradient>
   );
@@ -39,12 +31,6 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-  },
-
-  botao: {
-    alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 70,
   },
 });
 export default InfoGerais;

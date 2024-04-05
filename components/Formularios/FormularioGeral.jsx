@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { TextInput, View, Text, StyleSheet, Pressable } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { TextInput, View, Text, StyleSheet } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
 import Colors from "../../constants/Colors";
+import Botoes from "../Botoes";
 
 const FormularioGeral = () => {
   const [nome, setNome] = useState("");
@@ -18,6 +19,7 @@ const FormularioGeral = () => {
       label: "Feminino",
     },
   ];
+
   const handleSubmit = () => {
     const data = {
       nome,
@@ -26,7 +28,6 @@ const FormularioGeral = () => {
       altura,
       genero,
     };
-    console.log(data);
   };
 
   return (
@@ -112,6 +113,15 @@ const FormularioGeral = () => {
           />
         </View>
       </View>
+      <View style={styles.botao}>
+        <Botoes
+          texto="Próximo"
+          urlAnterior={""}
+          urlProximo="PerfilUsuario/Fisico"
+          ativo={true}
+          submit={handleSubmit}
+        />
+      </View>
     </View>
   );
 };
@@ -152,6 +162,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 18,
     paddingBottom: 4,
+  },
+  botao: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: -450,
   },
   inputMenor: {
     height: 20,

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import Colors from "../../constants/Colors";
 import RadioButtonRN from "radio-buttons-react-native";
+import Botoes from "../Botoes";
 
 const FormularioFisico = () => {
   const [nivelAtividade, setNivelAtividade] = useState("");
@@ -19,13 +20,13 @@ const FormularioFisico = () => {
       label: "Alto",
     },
   ];
+
   const handleSubmit = () => {
     const data = {
       nivelAtividade,
       gordura,
       caloriasDiarias,
     };
-    console.log(data);
   };
 
   return (
@@ -81,6 +82,15 @@ const FormularioFisico = () => {
           inputMode="numeric"
         />
       </View>
+      <View style={styles.botao}>
+        <Botoes
+          texto="Próximo"
+          ativo={true}
+          urlProximo="PerfilUsuario/Historico"
+          urlAnterior="PerfilUsuario/InfoGerais"
+          submit={handleSubmit}
+        />
+      </View>
     </View>
   );
 };
@@ -99,6 +109,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 55,
     paddingTop: 80,
+  },
+  botao: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: -450,
   },
 
   containerCaloriasDiarias: {

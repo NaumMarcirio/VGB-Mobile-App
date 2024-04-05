@@ -1,13 +1,15 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, View, Text, Button, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import Colors from "../constants/Colors";
-const Botoes = ({ texto, urlProximo, urlAnterior, ativo, padding, dados }) => {
+
+const Botoes = ({ texto, urlProximo, urlAnterior, ativo, padding, submit }) => {
   const router = useRouter();
 
   const paddingStyle = padding
     ? { paddingHorizontal: padding }
     : { paddingHorizontal: 40 };
+
   return (
     <View style={styles.container}>
       {ativo && (
@@ -19,8 +21,8 @@ const Botoes = ({ texto, urlProximo, urlAnterior, ativo, padding, dados }) => {
         </Pressable>
       )}
       <Pressable
-        onPress={() => router.push(`/${urlProximo}`)}
         style={[styles.botaoProximo, paddingStyle]}
+        onPress={() => router.push(`/${urlProximo}`)}
       >
         <Text style={styles.textoBotaoProximo}>{texto}</Text>
       </Pressable>

@@ -3,7 +3,6 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import useLoadFonts from "../../hooks/useLoadFonts";
 import Colors from "../../constants/Colors";
-
 export { ErrorBundary } from "expo-router";
 
 export const unstable_settings = {

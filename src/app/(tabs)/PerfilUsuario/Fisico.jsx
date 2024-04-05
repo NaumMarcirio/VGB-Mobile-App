@@ -17,14 +17,6 @@ const Fisico = () => {
         <Header ativo={true} texto="Naum Marcirio" />
         <JanelaAtual titulo="Físico" />
         <FormularioFisico />
-        <View style={styles.botao}>
-          <Botoes
-            texto="Avançar"
-            ativo={true}
-            urlProximo="PerfilUsuario/Historico"
-            urlAnterior="PerfilUsuario/InfoGerais"
-          />
-        </View>
       </View>
     </LinearGradient>
   );
@@ -39,11 +31,6 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  botao: {
-    alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 70,
   },
 });
 
