@@ -1,11 +1,24 @@
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import Botoes from "../../components/Botoes";
 import Colors from "../../constants/Colors";
+import { createTable } from '../../database/database';
+import { useRouter } from "expo-router";
 
 const BoasVindas = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    createTable();
+  }, []);
+
+
+  const handleSubmit = () => {
+    router.push(`/PerfilUsuario`)
+  };
+
   return (
     <LinearGradient
       colors={[Colors.grdienteInicio, Colors.gradienteFim]}
@@ -23,7 +36,7 @@ const BoasVindas = () => {
           <Text style={[styles.subtitulo2]}>Gerado com I.A.</Text>
         </View>
         <View style={styles.botao}>
-          <Botoes texto="Próximo" urlProximo="PerfilUsuario" ativo={false} />
+          <Botoes texto="Próximo" ativo={false} submit={handleSubmit} />
         </View>
       </View>
     </LinearGradient>

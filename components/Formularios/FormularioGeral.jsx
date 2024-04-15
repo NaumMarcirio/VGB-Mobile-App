@@ -3,31 +3,74 @@ import { TextInput, View, Text, StyleSheet } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
+import { db } from '../../database/database';
+import { useRouter } from "expo-router";
+
 
 const FormularioGeral = () => {
+  const router = useRouter();
+  const [id, setId] = useState();
   const [nome, setNome] = useState("");
-  const [idade, setIdade] = useState(0);
-  const [peso, setPeso] = useState(0);
-  const [altura, setAltura] = useState(0);
-  const [genero, setGenero] = useState("homem");
+  const [idade, setIdade] = useState("");
+  const [peso, setPeso] = useState("");
+  const [altura, setAltura] = useState("");
+  const [genero, setGenero] = useState("");
+
+
+  useEffect(() => {
+    const carregarInformacoesUsuario = () => {
+      db.transaction(tx => {
+        tx.executeSql(
+          `SELECT ID, Nome, Idade, Peso, Altura, Genero FROM usuarios;`,
+          [],
+          (_, result) => {
+            if (result.rows.length > 0) {
+              const { Id, Nome, Idade, Peso, Altura, Genero } = result.rows.item(0);
+              setId(Id);
+              setNome(Nome);
+              setIdade(Idade);
+              setPeso(Peso);
+              setAltura(Altura);
+              setGenero(Genero);
+              console.log(Id, Nome, Idade, Peso, Altura, Genero);
+            }
+            console.log('Informações do usuário carregadas')
+          },
+          (_, error) => {
+            console.log('Erro ao carregar informações do usuário:', error);
+          }
+        );
+      });
+    };
+
+    carregarInformacoesUsuario();
+  }, []);
+
 
   const generoEscolha = [
-    {
-      label: "Masculino",
-    },
-    {
-      label: "Feminino",
-    },
+    { label: "Masculino", value: "Masculino" },
+    { label: "Feminino", value: "Feminino" },
   ];
 
   const handleSubmit = () => {
-    const data = {
-      nome,
-      idade,
-      peso,
-      altura,
-      genero,
-    };
+    console.log(idade)
+    db.transaction(tx => {
+      tx.executeSql(
+        `INSERT OR REPLACE INTO usuarios (ID, Nome, Idade, Peso, Altura, Genero) 
+        VALUES (?, ?, ?, ?, ?, ?);`,
+        [id, nome, idade, peso, altura, genero],
+        (_, result) => {
+          console.log('Informações do usuário atualizadas com sucesso!');
+        },
+        (_, error) => {
+          console.log('Erro ao atualizar informações do usuário:', error);
+        }
+      );
+      console.log(nome, idade, peso, altura, genero)
+    });
+
+    router.push(`/PerfilUsuario/Fisico`)
+
   };
 
   return (
@@ -35,6 +78,7 @@ const FormularioGeral = () => {
       <View style={styles.containerNome}>
         <Text style={styles.label}>Nome</Text>
         <TextInput
+          value={nome.toString()}
           style={styles.inputMaior}
           onChangeText={setNome}
           color={Colors.brancoBase}
@@ -44,6 +88,7 @@ const FormularioGeral = () => {
       <View style={styles.containerIdade}>
         <Text style={styles.label}>Idade</Text>
         <TextInput
+          value={idade.toString()}
           onChangeText={setIdade}
           style={styles.inputMaior}
           color={Colors.brancoBase}
@@ -59,6 +104,7 @@ const FormularioGeral = () => {
         >
           <Text style={styles.label}>Altura</Text>
           <TextInput
+            value={altura.toString()}
             style={styles.inputMenor}
             onChangeText={setAltura}
             color={Colors.brancoBase}
@@ -73,6 +119,7 @@ const FormularioGeral = () => {
         >
           <Text style={styles.label}>Peso</Text>
           <TextInput
+            value={peso.toString()}
             style={styles.inputMenor}
             onChangeText={setPeso}
             color={Colors.brancoBase}
@@ -105,7 +152,7 @@ const FormularioGeral = () => {
               fontSize: 14,
             }}
             data={generoEscolha}
-            selectedBtn={(e) => setGenero(e)}
+            selectedBtn={(value) => setGenero(value.value)}
             activeColor={Colors.vermelhoBase}
             textColor={Colors.brancoBase}
             boxActiveBgColor={"transparent"}
@@ -117,7 +164,6 @@ const FormularioGeral = () => {
         <Botoes
           texto="Próximo"
           urlAnterior={""}
-          urlProximo="PerfilUsuario/Fisico"
           ativo={true}
           submit={handleSubmit}
         />
