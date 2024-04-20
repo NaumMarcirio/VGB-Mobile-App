@@ -22,7 +22,7 @@ const Botoes = ({ texto, urlProximo, urlAnterior, ativo, padding, submit }) => {
       )}
       <Pressable
         style={[styles.botaoProximo, paddingStyle]}
-        onPress={() => router.push(`/${urlProximo}`)}
+        onPress={submit}
       >
         <Text style={styles.textoBotaoProximo}>{texto}</Text>
       </Pressable>

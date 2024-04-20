@@ -1,15 +1,29 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { TextInput, View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
+import Botoes from "../Botoes";
+import { useRouter } from "expo-router";
+import {
+  Bintolerancias,
+  BsetIntolerancias,
+  inserirOuAtualizarUsuario
+} from '../../database/variaveis';
 
 const FormularioProblemasAlimentares = () => {
-  const [problemasAlimentares, setProblemasAlimentares] = useState("");
+  const router = useRouter();
+  const [problemasAlimentares, setProblemasAlimentares] = useState(Bintolerancias);
+
+  useEffect(() => {
+    inserirOuAtualizarUsuario();
+  }, []);
 
   const handleSubmit = () => {
-    const data = {
-      problemasAlimentares,
-    };
-    console.log(data); // Aqui você pode fazer o que desejar com os dados, como enviar para o servidor, por exemplo
+    BsetIntolerancias(problemasAlimentares)
+
+    inserirOuAtualizarUsuario()
+
+    router.push(`PerfilUsuario/NaoIncluir`)
+
   };
 
   return (
@@ -17,6 +31,7 @@ const FormularioProblemasAlimentares = () => {
       <View style={styles.containerProblemasAlimentares}>
         <Text style={styles.label}>Alergias/Intolerâncias</Text>
         <TextInput
+          value={problemasAlimentares.toString()}
           onChangeText={setProblemasAlimentares}
           style={styles.inputMaior}
           color={Colors.brancoBase}
@@ -24,6 +39,14 @@ const FormularioProblemasAlimentares = () => {
           placeholder="Ex: Lactose"
           placeholderTextColor={Colors.cinzaBase} // Define a cor do placeholder
           textAlignVertical="top" // Alinha o texto verticalmente para o topo
+        />
+      </View>
+      <View style={styles.botao}>
+        <Botoes
+          texto="Avançar"
+          ativo={true}
+          urlAnterior="PerfilUsuario/Historico"
+          submit={handleSubmit}
         />
       </View>
     </View>
@@ -39,7 +62,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingTop: 80,
   },
-
+  botao: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: -450,
+  },
   inputMaior: {
     height: 200,
     width: 300, // Alterado para preencher todo o espaço disponível

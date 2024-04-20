@@ -14,17 +14,9 @@ const Historico = () => {
       style={styles.containerGlobal}
     >
       <View style={styles.container}>
-        <Header ativo={true} texto="Naum Marcirio" />
+        <Header ativo={true} />
         <JanelaAtual titulo="Histórico" />
         <FormularioHistorico />
-        <View style={styles.botao}>
-          <Botoes
-            texto="Avançar"
-            ativo={true}
-            urlProximo="PerfilUsuario/ProblemasAlimentares"
-            urlAnterior="PerfilUsuario/Fisico"
-          />
-        </View>
       </View>
     </LinearGradient>
   );
@@ -40,12 +32,7 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  botao: {
-    alignSelf: "flex-end",
-    position: "absolute",
-    bottom: 70,
-  },
+  }
 });
 
 export default Historico;

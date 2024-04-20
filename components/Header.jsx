@@ -1,14 +1,18 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
+import {
+  Bnome,
+} from '../database/variaveis';
 
-const Header = ({ ativo, texto }) => {
+
+const Header = ({ ativo }) => {
   return (
     <View style={styles.container}>
       <Image
         style={styles.logo}
         source={require("../assets/images/icone-canto-direito.png")}
       />
-      {ativo && <Text style={styles.texto}>{texto}</Text>}
+      {ativo && <Text style={styles.texto}>{Bnome}</Text>}
     </View>
   );
 };

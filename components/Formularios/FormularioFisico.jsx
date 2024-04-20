@@ -3,31 +3,43 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 import Colors from "../../constants/Colors";
 import RadioButtonRN from "radio-buttons-react-native";
 import Botoes from "../Botoes";
+import { useRouter } from "expo-router";
+import {
+  Bnivel_de_atividade,
+  Bgordura,
+  Bcalorias,
+  BsetNivelDeAtividade,
+  BsetGordura,
+  BsetCalorias,
+  inserirOuAtualizarUsuario
+} from '../../database/variaveis';
 
 const FormularioFisico = () => {
-  const [nivelAtividade, setNivelAtividade] = useState("");
-  const [gordura, setGordura] = useState(0);
-  const [caloriasDiarias, setCaloriasDiarias] = useState(0);
+  const router = useRouter();
+  const [nivelAtividade, setNivelAtividade] = useState(Bnivel_de_atividade);
+  const [gordura, setGordura] = useState(Bgordura);
+  const [caloriasDiarias, setCaloriasDiarias] = useState(Bcalorias);
 
-  const nivelAtividadeDados = [
-    {
-      label: "Baixo",
-    },
-    {
-      label: "Médio",
-    },
-    {
-      label: "Alto",
-    },
-  ];
+  useEffect(() => {
+    inserirOuAtualizarUsuario();
+  }, []);
 
   const handleSubmit = () => {
-    const data = {
-      nivelAtividade,
-      gordura,
-      caloriasDiarias,
-    };
+    BsetNivelDeAtividade(nivelAtividade)
+    BsetGordura(gordura)
+    BsetCalorias(caloriasDiarias)
+
+    inserirOuAtualizarUsuario()
+
+    router.push(`PerfilUsuario/Historico`)
+
   };
+
+  const nivelAtividadeDados = [
+    { label: "Baixo", value: "Baixo" },
+    { label: "Médio", value: "Medio" },
+    { label: "Alto", value: "Alto" }
+  ];
 
   return (
     <View style={styles.container}>
@@ -56,7 +68,7 @@ const FormularioFisico = () => {
               fontSize: 14,
             }}
             data={nivelAtividadeDados}
-            selectedBtn={(e) => setNivelAtividade(e)}
+            selectedBtn={(value) => setNivelAtividade(value.value)}
             activeColor={Colors.vermelhoBase}
             textColor={Colors.brancoBase}
             boxActiveBgColor={"transparent"}
@@ -67,6 +79,7 @@ const FormularioFisico = () => {
       <View style={styles.containerGordura}>
         <Text style={styles.label}>% De Gordura</Text>
         <TextInput
+          value={gordura.toString()}
           onChangeText={setGordura}
           style={styles.inputMaior}
           color={Colors.brancoBase}
@@ -76,6 +89,7 @@ const FormularioFisico = () => {
       <View style={styles.containerCaloriasDiarias}>
         <Text style={styles.label}>Calorias Diárias</Text>
         <TextInput
+          value={caloriasDiarias.toString()}
           onChangeText={setCaloriasDiarias}
           style={styles.inputMaior}
           color={Colors.brancoBase}
@@ -86,7 +100,6 @@ const FormularioFisico = () => {
         <Botoes
           texto="Próximo"
           ativo={true}
-          urlProximo="PerfilUsuario/Historico"
           urlAnterior="PerfilUsuario/InfoGerais"
           submit={handleSubmit}
         />
