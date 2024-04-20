@@ -3,7 +3,6 @@ import { TextInput, View, Text, StyleSheet } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
-import { db } from '../../database/database';
 import { useRouter } from "expo-router";
 import {
   Bid,

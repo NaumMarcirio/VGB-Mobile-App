@@ -1,15 +1,28 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { TextInput, View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
+import Botoes from "../Botoes";
+import { useRouter } from "expo-router";
+import {
+  Bexcluir_alimentos,
+  BsetExcluirAlimentos,
+  inserirOuAtualizarUsuario
+} from '../../database/variaveis';
 
 const FormularioNaoIncluir = () => {
-  const [naoIncluir, setNaoIncluir] = useState("");
+  const router = useRouter();
+  const [naoIncluir, setNaoIncluir] = useState(Bexcluir_alimentos);
+
+  useEffect(() => {
+    inserirOuAtualizarUsuario();
+  }, []);
 
   const handleSubmit = () => {
-    const data = {
-      historico,
-    };
-    console.log(data);
+    BsetExcluirAlimentos(naoIncluir)
+
+    inserirOuAtualizarUsuario()
+
+    router.push(`GuiaAlimentar`)
   };
   return (
     <View style={styles.container}>
@@ -23,6 +36,14 @@ const FormularioNaoIncluir = () => {
           placeholder="Ex: Melancia"
           placeholderTextColor={Colors.cinzaBase} // Define a cor do placeholder
           textAlignVertical="top" // Alinha o texto verticalmente para o topo
+        />
+      </View>
+      <View style={styles.botao}>
+        <Botoes
+          texto="Próximo"
+          urlAnterior={"PerfilUsuario/ProblemasAlimentares"}
+          ativo={true}
+          submit={handleSubmit}
         />
       </View>
     </View>
@@ -52,7 +73,11 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingTop: 12,
   },
-
+  botao: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    bottom: -450,
+  },
   label: {
     color: Colors.brancoBase,
     fontSize: 14,

@@ -32,7 +32,6 @@ const createTable = () => {
   });
 
   carregarDadosDoUsuario()
-
   inserirOuAtualizarUsuario()
 };
 

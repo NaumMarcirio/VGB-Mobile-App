@@ -24,18 +24,6 @@ const FormularioFisico = () => {
     inserirOuAtualizarUsuario();
   }, []);
 
-  const nivelAtividadeDados = [
-    {
-      label: "Baixo",
-    },
-    {
-      label: "Médio",
-    },
-    {
-      label: "Alto",
-    },
-  ];
-
   const handleSubmit = () => {
     BsetNivelDeAtividade(nivelAtividade)
     BsetGordura(gordura)
@@ -46,6 +34,12 @@ const FormularioFisico = () => {
     router.push(`PerfilUsuario/Historico`)
 
   };
+
+  const nivelAtividadeDados = [
+    { label: "Baixo", value: "Baixo" },
+    { label: "Médio", value: "Medio" },
+    { label: "Alto", value: "Alto" }
+  ];
 
   return (
     <View style={styles.container}>
@@ -74,7 +68,7 @@ const FormularioFisico = () => {
               fontSize: 14,
             }}
             data={nivelAtividadeDados}
-            selectedBtn={(e) => setNivelAtividade(e)}
+            selectedBtn={(value) => setNivelAtividade(value.value)}
             activeColor={Colors.vermelhoBase}
             textColor={Colors.brancoBase}
             boxActiveBgColor={"transparent"}

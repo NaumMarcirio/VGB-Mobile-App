@@ -14,7 +14,7 @@ const InfoGerais = () => {
       style={styles.containerGlobal}
     >
       <View style={styles.container}>
-        <Header ativo={true} texto="Naum Marcirio" />
+        <Header ativo={true} />
         <JanelaAtual titulo="Gerais" />
         <FormularioGeral />
       </View>
