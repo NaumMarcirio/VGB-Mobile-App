@@ -1,49 +1,51 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import RadioButtonRN from "radio-buttons-react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
 import { db } from '../../database/database';
 import { useRouter } from "expo-router";
+import {
+  Bid,
+  Bnome,
+  Bidade,
+  Baltura,
+  Bpeso,
+  Bgenero,
+  Bnivel_de_atividade,
+  Bgordura,
+  Bcalorias,
+  Bhistorico_medico,
+  Bintolerancias,
+  Bexcluir_alimentos,
+  BsetId,
+  BsetNome,
+  BsetIdade,
+  BsetAltura,
+  BsetPeso,
+  BsetGenero,
+  BsetNivelDeAtividade,
+  BsetGordura,
+  BsetCalorias,
+  BsetHistoricoMedico,
+  BsetIntolerancias,
+  BsetExcluirAlimentos,
+  carregarDadosDoUsuario,
+  inserirOuAtualizarUsuario
+} from '../../database/variaveis';
 
 
 const FormularioGeral = () => {
   const router = useRouter();
-  const [id, setId] = useState();
-  const [nome, setNome] = useState("");
-  const [idade, setIdade] = useState("");
-  const [peso, setPeso] = useState("");
-  const [altura, setAltura] = useState("");
-  const [genero, setGenero] = useState("");
+  const [nome, setNome] = useState(Bnome);
+  const [idade, setIdade] = useState(Bidade);
+  const [peso, setPeso] = useState(Bpeso);
+  const [altura, setAltura] = useState(Baltura);
+  const [genero, setGenero] = useState(Bgenero);
 
 
   useEffect(() => {
-    const carregarInformacoesUsuario = () => {
-      db.transaction(tx => {
-        tx.executeSql(
-          `SELECT ID, Nome, Idade, Peso, Altura, Genero FROM usuarios;`,
-          [],
-          (_, result) => {
-            if (result.rows.length > 0) {
-              const { Id, Nome, Idade, Peso, Altura, Genero } = result.rows.item(0);
-              setId(Id);
-              setNome(Nome);
-              setIdade(Idade);
-              setPeso(Peso);
-              setAltura(Altura);
-              setGenero(Genero);
-              console.log(Id, Nome, Idade, Peso, Altura, Genero);
-            }
-            console.log('Informações do usuário carregadas')
-          },
-          (_, error) => {
-            console.log('Erro ao carregar informações do usuário:', error);
-          }
-        );
-      });
-    };
-
-    carregarInformacoesUsuario();
+    inserirOuAtualizarUsuario();
   }, []);
 
 
@@ -53,21 +55,13 @@ const FormularioGeral = () => {
   ];
 
   const handleSubmit = () => {
-    console.log(idade)
-    db.transaction(tx => {
-      tx.executeSql(
-        `INSERT OR REPLACE INTO usuarios (ID, Nome, Idade, Peso, Altura, Genero) 
-        VALUES (?, ?, ?, ?, ?, ?);`,
-        [id, nome, idade, peso, altura, genero],
-        (_, result) => {
-          console.log('Informações do usuário atualizadas com sucesso!');
-        },
-        (_, error) => {
-          console.log('Erro ao atualizar informações do usuário:', error);
-        }
-      );
-      console.log(nome, idade, peso, altura, genero)
-    });
+    BsetNome(nome)
+    BsetIdade(idade)
+    BsetAltura(altura)
+    BsetPeso(peso)
+    BsetGenero(genero)
+
+    inserirOuAtualizarUsuario()
 
     router.push(`/PerfilUsuario/Fisico`)
 

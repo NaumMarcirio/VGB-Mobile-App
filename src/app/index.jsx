@@ -25,7 +25,7 @@ const BoasVindas = () => {
       style={styles.containerGlobal}
     >
       <View style={styles.container}>
-        <Header ativo={true} texto="Naum Marcirio" />
+        <Header ativo={true} />
         <View style={styles.areaTexto}>
           <Text style={[styles.titulo1]}>Bem-vindo ao seu</Text>
           <Text style={[styles.titulo2]}>GUIA NUTRICIONAL</Text>

@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { inserirOuAtualizarUsuario, carregarDadosDoUsuario } from './variaveis';
 
 const db = SQLite.openDatabase('infos.db');
 
@@ -6,16 +7,16 @@ const db = SQLite.openDatabase('infos.db');
 const createTable = () => {
   db.transaction(tx => {
     tx.executeSql(
-      `CREATE TABLE IF NOT EXISTS usuarios (
+      `CREATE TABLE IF NOT EXISTS usuario (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         Nome TEXT,
-        Idade INTEGER,
-        Altura INTEGER,
-        Peso INTEGER,
+        Idade TEXT,
+        Altura TEXT,
+        Peso TEXT,
         Genero TEXT,
         NivelDeAtividade TEXT,
-        Gordura INTEGER,
-        Calorias INTEGER,
+        Gordura TEXT,
+        Calorias TEXT,
         HistoricoMedico TEXT,
         Intolerancias TEXT,
         ExcluirAlimentos TEXT
@@ -29,6 +30,10 @@ const createTable = () => {
       }
     );
   });
+
+  carregarDadosDoUsuario()
+
+  inserirOuAtualizarUsuario()
 };
 
 export { db, createTable };
