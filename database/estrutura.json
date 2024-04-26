@@ -1,0 +1,46 @@
+{
+    "refeicoes": {
+      "segunda-feira": {
+        "8am": "Pão com presunto",
+        "12pm": "Arroz, feijão e frango",
+        "5pm": "Frutas",
+        "9pm": "Sopa de legumes"
+      },
+      "terca-feira": {
+        "8am": "Café com leite e pão de queijo",
+        "12pm": "Macarrão com molho de tomate",
+        "5pm": "Iogurte",
+        "9pm": "Peixe grelhado com legumes"
+      },
+      "quarta-feira": {
+        "8am": "Vitamina de frutas",
+        "12pm": "Feijoada",
+        "5pm": "Barrinha de cereal",
+        "9pm": "Salada de quinoa"
+      },
+      "quinta-feira": {
+        "8am": "Omelete com vegetais",
+        "12pm": "Salada de frango com quinoa",
+        "5pm": "Iogurte natural",
+        "9pm": "Pizza caseira"
+      },
+      "sexta-feira": {
+        "8am": "Café da manhã completo",
+        "12pm": "Frango com arroz integral",
+        "5pm": "Sanduíche de atum",
+        "9pm": "Sopa de legumes"
+      },
+      "sabado": {
+        "8am": "Panquecas com mel",
+        "12pm": "Churrasco",
+        "5pm": "Salada de frutas",
+        "9pm": "Massa com molho de tomate"
+      },
+      "domingo": {
+        "8am": "Tapioca recheada",
+        "12pm": "Sushi",
+        "5pm": "Crepe",
+        "9pm": "Risoto de cogumelos"
+      }
+    }
+  }
