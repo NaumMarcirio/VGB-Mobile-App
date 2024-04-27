@@ -10,6 +10,11 @@ const PerfilUsuarioNav = () => {
       }}
     >
       <Stack.Screen
+        name="QrCodeScreen"
+        options={{ headerShown: false }}
+        title={true}
+      />
+      <Stack.Screen
         name="InfoGerais"
         options={{ headerShown: false }}
         title={true}
