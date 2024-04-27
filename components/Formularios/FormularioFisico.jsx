@@ -14,6 +14,8 @@ import {
   inserirOuAtualizarUsuario
 } from '../../database/variaveis';
 
+import  ReadJSONScreen from '../../database/leituraJson/leitura'
+
 const FormularioFisico = () => {
   const router = useRouter();
   const [nivelAtividade, setNivelAtividade] = useState(Bnivel_de_atividade);
@@ -43,7 +45,9 @@ const FormularioFisico = () => {
 
   return (
     <View style={styles.container}>
+       <ReadJSONScreen />
       <View style={styles.containerNivelAtividade}>
+        
         <Text style={styles.label}>Nivel de Atividade</Text>
         <View>
           <RadioButtonRN
