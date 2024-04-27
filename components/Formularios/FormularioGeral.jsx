@@ -156,7 +156,7 @@ const FormularioGeral = () => {
       <View style={styles.botao}>
         <Botoes
           texto="Próximo"
-          urlAnterior={""}
+          urlAnterior={"GuiaAlimentar"}
           ativo={true}
           submit={handleSubmit}
         />

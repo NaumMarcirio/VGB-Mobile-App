@@ -43,7 +43,7 @@ const FormularioProblemasAlimentares = () => {
       </View>
       <View style={styles.botao}>
         <Botoes
-          texto="Avançar"
+          texto="Próximo"
           ativo={true}
           urlAnterior="PerfilUsuario/Historico"
           submit={handleSubmit}
