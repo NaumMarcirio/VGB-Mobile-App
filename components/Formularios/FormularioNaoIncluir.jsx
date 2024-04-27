@@ -29,6 +29,7 @@ const FormularioNaoIncluir = () => {
       <View style={styles.containerNaoIncluir}>
         <Text style={styles.label}>Alimentos Para Não Incluir</Text>
         <TextInput
+          value={naoIncluir.toString()}
           onChangeText={setNaoIncluir}
           style={styles.inputMaior}
           color={Colors.brancoBase}

@@ -6,6 +6,9 @@ import Botoes from "../../components/Botoes";
 import Colors from "../../constants/Colors";
 import { createTable } from '../../database/database';
 import { useRouter } from "expo-router";
+import {
+  Bnome,
+} from '../../database/variaveis';
 
 const BoasVindas = () => {
   const router = useRouter();
@@ -16,7 +19,11 @@ const BoasVindas = () => {
 
 
   const handleSubmit = () => {
-    router.push(`/PerfilUsuario`)
+    if (Bnome != "") {
+      router.push(`/GuiaAlimentar`);
+    } else {
+      router.push(`/PerfilUsuario`)
+    }
   };
 
   return (
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     position: "absolute",
     bottom: 120,
+    right: 20,
   },
 });
 
