@@ -1,13 +1,20 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Tabs } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
-import Header from "../../../components/Header";
-import Colors from "../../../constants/Colors";
-import Botoes from "../../../components/Botoes";
+import Header from "../../../../components/Header";
+import Colors from "../../../../constants/Colors"
+import Botoes from "../../../../components/Botoes";
 import { Entypo } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
-const GuiaAlimentar = () => {
+const GerarGuia = () => {
+  
+  const router = useRouter();
+  const handleSubmit = () => {
+  
+    router.push(`GuiaAlimentar/GuiaAlimentar`)
+  };
+
   return (
     <LinearGradient
       colors={[Colors.grdienteInicio, Colors.gradienteFim]}
@@ -19,7 +26,7 @@ const GuiaAlimentar = () => {
           <Botoes
             texto="Gerar Semana"
             urlAnterior={""}
-            urlProximo="PerfilUsuario/Fisico"
+            submit= {handleSubmit}
             ativo={false}
             padding={100}
           />
@@ -47,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GuiaAlimentar;
+export default GerarGuia;
