@@ -1,19 +1,24 @@
 
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { CheckBox } from 'react-native-elements';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../../components/Header';
 import Colors from '../../../constants/Colors';
-import React from "react";
-import { Tabs } from "expo-router";
-import Botoes from "../../../components/Botoes";
-import { Entypo } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { CheckBox } from '@rneui/base';
+
+
 
 const ListaCompras = () => {
   const [itens, setItens] = useState([
     { nome: 'Arroz', id: '1', marcado: false },
     { nome: 'Feijão', id: '2', marcado: false },
     { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '3', marcado: false },
+    { nome: 'verde', id: '3', marcado: false },
    
   ]);
 
@@ -34,22 +39,25 @@ const ListaCompras = () => {
       <View style={styles.container}>
         <Header ativo={true} texto="Naum Marcirio" />
       </View>
-      <View style={styles.containerTitulos}>
-        <FlatList
-          data={itens}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <CheckBox
-                checked={item.marcado}
-                onPress={() => marcarItem(item.id)}
-                checkedColor='green'
-                uncheckedColor='white'
-              />
-              <Text style={styles.itemTexto}>{item.nome}</Text>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
+      <View style={styles.ScrollViewContainer}>
+        <ScrollView style={styles.ScrollView}>
+          <FlatList
+            data={itens}
+            renderItem={({ item }) => (
+              <View style={styles.item}>
+                <CheckBox style= {styles.CheckBox}
+                  size={8}
+                  checked={item.marcado}
+                  onPress={() => marcarItem(item.id)}
+                  checkedColor='green'
+                  uncheckedColor='white'
+                />
+                <Text style={styles.itemTexto}>{item.nome}</Text>
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </ScrollView>
       </View>
     </LinearGradient>
   );
@@ -95,6 +103,21 @@ const styles = StyleSheet.create({
   itemTexto: {
     marginLeft: 10,
   },
+  ScrollViewContainer:{
+    width : '80%',
+    backgroundColor: 'white',
+    marginTop:150,
+    marginBottom:30,
+  },
+  ScrollView:{
+    width : '100%',
+  },
+  CheckBox:{
+    size : 8,
+    backgroundColor : 'transparent',
+    borderColor: Colors.cinzaBase,
+    borderWidth: 1,
+  }
 });
 
 export default ListaCompras;

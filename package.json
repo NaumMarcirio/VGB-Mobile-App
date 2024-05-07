@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/kodchasan": "^0.2.3",
+    "@rneui/base": "^4.0.0-rc.8",
     "expo": "~50.0.15",
     "expo-constants": "~15.4.5",
     "expo-font": "~11.10.3",
