@@ -1,6 +1,6 @@
-import { LinearGradient } from "expo-linear-gradient";
+
 import { Stack } from "expo-router";
-import Colors from "../../../../constants/Colors";
+
 
 const GuiaAlimentarNav = () => {
   return (
@@ -19,7 +19,7 @@ const GuiaAlimentarNav = () => {
         options={{ headerShown: false }}
         title={true}
       />
-      
+
     </Stack>
   );
 };

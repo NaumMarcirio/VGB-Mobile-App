@@ -2,99 +2,127 @@ const dataRefeicoes = [
     {
         "manha": {
             "prato": "Pão com presunto",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Arroz, feijão e frango",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Sopa de legumes",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Creme de milho",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Café com leite e pão de queijo",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Macarrão com molho de tomate",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Iogurte",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Gelatina",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Vitamina de frutas",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Feijoada",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Barrinha de cereal",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Bolo de banana",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Omelete com vegetais",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Salada de frango com quinoa",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Iogurte natural",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Pudim de chocolate",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Café da manhã completo",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Frango com arroz integral",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Sanduíche de atum",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Mousse de maracujá",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Panquecas com mel",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Churrasco",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Salada de frutas",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Torta de limão",
+            "marcado": false
         }
     },
     {
         "manha": {
             "prato": "Tapioca recheada",
-            "marcado": 0
+            "marcado": false
         },
         "tarde": {
             "prato": "Sushi",
-            "marcado": 0
+            "marcado": false
         },
         "noite": {
             "prato": "Crepe",
-            "marcado": 0
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "Gelado de morango",
+            "marcado": false
         }
     }
 ];

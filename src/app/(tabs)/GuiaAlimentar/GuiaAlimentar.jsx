@@ -16,9 +16,9 @@ const GuiaAlimentar = () => {
     >
       <View style={styles.container}>
         <Header ativo={true} />
-        <JanelaAtual titulo="GuiaAlimentar" />
-        <Cards></Cards>
-    
+        <JanelaAtual titulo="Guia Alimentar" />
+        <Cards />
+
       </View>
     </LinearGradient>
   );
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  
+
 });
 
 export default GuiaAlimentar;
