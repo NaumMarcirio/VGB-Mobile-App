@@ -13,12 +13,12 @@ const ListaCompras = () => {
     { nome: 'Arroz', id: '1', marcado: false },
     { nome: 'Feijão', id: '2', marcado: false },
     { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'verde', id: '3', marcado: false },
+    { nome: 'Açúcar', id: '4', marcado: false },
+    { nome: 'Açúcar', id: '5', marcado: false },
+    { nome: 'Açúcar', id: '6', marcado: false },
+    { nome: 'Açúcar', id: '7', marcado: false },
+    { nome: 'Açúcar', id: '8', marcado: false },
+    { nome: 'verde', id: '9', marcado: false },
    
   ]);
 
@@ -40,24 +40,20 @@ const ListaCompras = () => {
         <Header ativo={true} texto="Naum Marcirio" />
       </View>
       <View style={styles.ScrollViewContainer}>
-        <ScrollView style={styles.ScrollView}>
-          <FlatList
+          <FlatList style={styles.flatList}
             data={itens}
             renderItem={({ item }) => (
               <View style={styles.item}>
-                <CheckBox style= {styles.CheckBox}
-                  size={8}
-                  checked={item.marcado}
-                  onPress={() => marcarItem(item.id)}
-                  checkedColor='green'
-                  uncheckedColor='white'
+                <CheckBox style={styles.CheckBox}
+                checked={item.marcado}
+                onPress={() => marcarItem(item.id)}
                 />
                 <Text style={styles.itemTexto}>{item.nome}</Text>
               </View>
             )}
             keyExtractor={(item) => item.id}
           />
-        </ScrollView>
+     
       </View>
     </LinearGradient>
   );
@@ -99,9 +95,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'dashed',
     borderRadius: 10,
+    backgroundColor: '#323232'
   },
   itemTexto: {
     marginLeft: 10,
+    borderColor: 'blue',
+
   },
   ScrollViewContainer:{
     width : '80%',
@@ -111,12 +110,17 @@ const styles = StyleSheet.create({
   },
   ScrollView:{
     width : '100%',
+    backgroundColor: 'grey'
   },
   CheckBox:{
-    size : 8,
-    backgroundColor : 'transparent',
-    borderColor: Colors.cinzaBase,
-    borderWidth: 1,
+    size:30,
+    checkedColor:'white',
+    uncheckedColor:'grey',
+    backgroundColor:'#323232',
+
+  },
+  flatList:{
+    backgroundColor: '#323232',
   }
 });
 
