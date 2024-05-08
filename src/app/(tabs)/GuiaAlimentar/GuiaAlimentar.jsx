@@ -17,7 +17,6 @@ const GuiaAlimentar = () => {
       <View style={styles.container}>
         <Header ativo={true} />
         <JanelaAtual titulo="GuiaAlimentar" />
-        <Text>Chupa Cu</Text>
         <Cards></Cards>
     
       </View>
