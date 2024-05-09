@@ -4,6 +4,8 @@ import Colors from "../../../../constants/Colors";
 import Header from "../../../../components/Header";
 import Botoes from "../../../../components/Botoes";
 import { useRouter } from "expo-router";
+import React from "react";
+import QRCodeScanner from "react-native-qrcode-scanner";
 
 const QrCodeScreen = () => {
   const router = useRouter();
@@ -23,6 +25,13 @@ const QrCodeScreen = () => {
           source={require("../../../../assets/images/ic_round-qr-code-2.png")}
           style={styles.imagemQrCode}
         />
+        <QRCodeScanner
+          onRead={(e) => {
+            console.log(e);
+          }}
+          containerStyle={styles.qrContainer}
+        ></QRCodeScanner>
+
         <View style={styles.botaoQRCODE}>
           <Botoes
             texto="Ler QR Code"
