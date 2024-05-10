@@ -4,23 +4,20 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../../components/Header';
 import Colors from '../../../constants/Colors';
 import React, { useState } from "react";
-import { CheckBox } from '@rneui/base';
-
-
+import { Checkbox } from "react-native-paper";
+import ingredientesJSON from '../../../database/listaCompras.json';
+import JanelaAtual from '../../../components/JanelaAtual';
 
 const ListaCompras = () => {
-  const [itens, setItens] = useState([
-    { nome: 'Arroz', id: '1', marcado: false },
-    { nome: 'Feijão', id: '2', marcado: false },
-    { nome: 'Açúcar', id: '3', marcado: false },
-    { nome: 'Açúcar', id: '4', marcado: false },
-    { nome: 'Açúcar', id: '5', marcado: false },
-    { nome: 'Açúcar', id: '6', marcado: false },
-    { nome: 'Açúcar', id: '7', marcado: false },
-    { nome: 'Açúcar', id: '8', marcado: false },
-    { nome: 'verde', id: '9', marcado: false },
-   
-  ]);
+  const [itens, setItens] = useState(() => {
+    const data = ingredientesJSON;
+    return Object.entries(data.ingredientes).map(([nome, { quantidade, marcado }]) => ({
+      nome,
+      quantidade,
+      marcado,
+      id: nome.toLowerCase().replace(/\s/g, "-")
+    }));
+  });
 
   const marcarItem = (id) => {
     setItens(itens.map((item) => {
@@ -37,23 +34,30 @@ const ListaCompras = () => {
       style={styles.containerGlobal}
     >
       <View style={styles.container}>
-        <Header ativo={true} texto="Naum Marcirio" />
+        <Header ativo={true} />
+        <JanelaAtual titulo="Lista de Compras" />
       </View>
       <View style={styles.ScrollViewContainer}>
-          <FlatList style={styles.flatList}
-            data={itens}
-            renderItem={({ item }) => (
-              <View style={styles.item}>
-                <CheckBox style={styles.CheckBox}
-                checked={item.marcado}
+        <FlatList style={styles.flatList}
+          data={itens}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+
+              <Checkbox
+                status={item.marcado ? 'checked' : 'unchecked'}
                 onPress={() => marcarItem(item.id)}
-                />
-                <Text style={styles.itemTexto}>{item.nome}</Text>
+                uncheckedColor={Colors.brancoBase}
+                color={Colors.verdeBase}
+              />
+              <View style={styles.containerTexto}>
+                <Text style={item.marcado? styles.itemTextoM: styles.itemTexto}>{item.nome}</Text>
+                <Text style={item.marcado? styles.quantidadeTextoM:styles.quantidadeTexto}>{item.quantidade}</Text>
               </View>
-            )}
-            keyExtractor={(item) => item.id}
-          />
-     
+            </View>
+          )}
+          keyExtractor={(item) => item.id}
+        />
+
       </View>
     </LinearGradient>
   );
@@ -89,39 +93,46 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    marginTop: 20,
+    padding: 10,
     borderColor: '#bbb',
-    borderWidth: 1,
+    borderWidth: 0,
     borderStyle: 'dashed',
     borderRadius: 10,
-    backgroundColor: '#323232'
+    backgroundColor: 'transparent',
+  
+  },
+  containerTexto:{
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    width: '80%'
   },
   itemTexto: {
     marginLeft: 10,
-    borderColor: 'blue',
+    color: Colors.brancoBase,
+    
 
   },
-  ScrollViewContainer:{
-    width : '80%',
-    backgroundColor: 'white',
-    marginTop:150,
-    marginBottom:30,
-  },
-  ScrollView:{
-    width : '100%',
-    backgroundColor: 'grey'
-  },
-  CheckBox:{
-    size:30,
-    checkedColor:'white',
-    uncheckedColor:'grey',
-    backgroundColor:'#323232',
+  itemTextoM: {
+    marginLeft: 10,
+    color: Colors.verdeBase,
+    textDecorationLine: 'line-through'
 
   },
-  flatList:{
-    backgroundColor: '#323232',
-  }
+  quantidadeTexto: {
+    marginLeft: 10,
+    color:  Colors.brancoBase
+  },
+  quantidadeTextoM: {
+    marginLeft: 10,
+    color:  Colors.verdeBase,
+    textDecorationLine: 'line-through',
+  },
+  ScrollViewContainer: {
+    width: '80%',
+    backgroundColor: 'transparent',
+    top:'30%',
+    
+  },
 });
 
 export default ListaCompras;
