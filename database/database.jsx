@@ -34,5 +34,27 @@ const createTable = () => {
   carregarDadosDoUsuario()
   inserirOuAtualizarUsuario()
 };
+const createTableJson = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS jsons_refeicoes (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        json_texto TEXT,
+        usuario_id INTEGER,
+        FOREIGN KEY(usuario_id) REFERENCES usuario(ID)
+      );`,
+        [],
+        (_, result) => {
+          console.log('Tabela de usuários criada com sucesso!');
+        },
+        (_, error) => {
+          console.log('Erro ao criar tabela de usuários:', error);
+        }
+    );
+  });
 
-export { db, createTable };
+  carregarDadosDoJson()
+  inserirOuAtualizarJson()
+};
+
+export { db, createTable, createTableJson };

@@ -12,6 +12,19 @@ let Bcalorias = "";
 let Bhistorico_medico = "";
 let Bintolerancias = "";
 let Bexcluir_alimentos = "";
+let Brefeicao_usuario_id = "";
+let Bjson_texto = "";
+let Brefeicao_id = "";
+
+function BsetRefeicaoId(newRefId) {
+  Brefeicao_id = newRefId;
+}
+function BsetJsonTexto(newJsonTexto) {
+  Bjson_texto = newJsonTexto;
+}
+function BsetUsuarioId(newUsuarioId) {
+  Brefeicao_usuario_id = newUsuarioId;
+}
 
 function BsetId(newId) {
   Bid = newId;
@@ -147,6 +160,69 @@ async function inserirOuAtualizarUsuario() {
     console.error("Erro ao inserir/atualizar dados do usuário:", error);
   }
 }
+async function carregarDadosDoJson() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_refeicoes",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              Brefeicao_id = json_refeicoes.ID;
+              Brefeicao_usuario_id = json_refeicoes.usuario_id;
+              Bjson_texto = json_refeicoes.json_texto;
+              console.log("Selecionado os dados");
+              console.log(Brefeicao_usuario_id, Bjson_texto);
+            } else {
+              console.log("Nenhum Json encontrado no banco de dados.");
+              Brefeicao_usuario_id = "";
+              Bjson_texto = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do usuário:", error);
+          }
+      );
+    });
+  } catch (error) {
+    console.error("Erro ao carregar dados do usuário:", error);
+  }
+}
+async function inserirOuAtualizarJson() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_refeicoes",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              tx.executeSql(
+                  `UPDATE json_refeicoes SET json_texto = ? WHERE usuario_id = ?`,
+                  [Bjson_texto, Brefeicao_usuario_id],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados do Json:", error)
+              );
+            } else {
+              // Se o Json não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO json_refeicoes (json_texto) WHERE usuario_id = ? VALUES (?)`,
+                  [Brefeicao_usuario_id, Bjson_texto],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do Json:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência do usuário:", error);
+          }
+      );
+    });
+    console.log("Dados do usuário inseridos/atualizados com sucesso.");
+    carregarDadosDoUsuario();
+  } catch (error) {
+    console.error("Erro ao inserir/atualizar dados do usuário:", error);
+  }
+}
 
 export {
   Bid,
@@ -161,6 +237,9 @@ export {
   Bhistorico_medico,
   Bintolerancias,
   Bexcluir_alimentos,
+  Bjson_texto,
+  Brefeicao_usuario_id,
+  Brefeicao_id,
   BsetId,
   BsetNome,
   BsetIdade,
@@ -173,6 +252,11 @@ export {
   BsetHistoricoMedico,
   BsetIntolerancias,
   BsetExcluirAlimentos,
+  BsetJsonTexto,
+  BsetUsuarioId,
+  BsetRefeicaoId,
   carregarDadosDoUsuario,
-  inserirOuAtualizarUsuario
+  inserirOuAtualizarUsuario,
+  carregarDadosDoJson,
+  inserirOuAtualizarJson
 };
