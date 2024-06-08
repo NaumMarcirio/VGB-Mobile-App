@@ -115,4 +115,3 @@ const styles = StyleSheet.create({
 });
 
 export default GerarGuia;
-export { resposta };
