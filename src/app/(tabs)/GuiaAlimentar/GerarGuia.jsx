@@ -1,49 +1,67 @@
-import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Header from "../../../../components/Header";
 import Colors from "../../../../constants/Colors";
 import Botoes from "../../../../components/Botoes";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { ActivityIndicator } from 'react-native-paper';
+import { fetchChatGPTResponse } from '../../../../components/requisicaoGPT/ChamaApi'
+import {
+  Bidade,
+  Baltura,
+  Bpeso,
+  Bgenero,
+  Bnivel_de_atividade,
+  Bgordura,
+  Bcalorias,
+  Bhistorico_medico,
+  Bintolerancias,
+  Bexcluir_alimentos,
+  carregarDadosDoUsuario,
+} from '../../../../database/variaveis';
+
 
 const GerarGuia = () => {
+  carregarDadosDoUsuario()
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const key = '';
-  const prompt = 'Quais sao os maiores paises do mundo';
+  const prompt = `Gere um plano alimentar para exatos 7 dias de pratos diversificados, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}. Gere um objeto JavaScript seguindo o seguinte formato alterando os pratos de forma diversificada 
+  "const dataRefeicoes = [
+    {
+        "manha": {
+            "prato": "ex prato 1",
+            "marcado": false
+        },
+        "tarde": {
+            "prato": "ex prato 2",
+            "marcado": false
+        },
+        "noite": {
+            "prato": "ex prato 3",
+            "marcado": false
+        },
+        "ceia": {
+            "prato": "ex prato 4",
+            "marcado": false
+        }
+    },
+    ...]`;
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${key}`
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "user",
-              content: prompt
-            }
-          ],
-          temperature: 0.20,
-          max_tokens: 200,
-          top_p: 1,
-        })
-      });
-
-      const data = await response.json();
-      console.log(data);
+      console.log(prompt)
+      const data = await fetchChatGPTResponse(key, prompt);
+      console.log(data.choices[0].message.content)
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
-    // router.push(`GuiaAlimentar/GuiaAlimentar`)
+    router.push(`GuiaAlimentar/GuiaAlimentar`)
   };
 
   return (
@@ -52,16 +70,21 @@ const GerarGuia = () => {
       style={styles.containerGlobal}
     >
       <View style={styles.container}>
-        <Header ativo={true} texto="Naum Marcirio" />
+        <Header ativo={true} />
         <View style={styles.containerBotao}>
-          <Botoes
-            texto="Gerar Semana"
-            urlAnterior={""}
-            submit={handleSubmit}
-            ativo={loading} // Desabilitar o botão quando estiver carregando
-            padding={100}
-          />
-          <Entypo name="dots-three-horizontal" size={24} color="white" />
+          {loading ? (
+            <ActivityIndicator size="large" color={Colors.verdeBase} />
+          ) : (
+            <>
+              <Botoes
+                texto="Gerar Semana"
+                urlAnterior={""}
+                submit={handleSubmit}
+                padding={100}
+              />
+              <Entypo name="dots-three-horizontal" size={24} color="white" />
+            </>
+          )}
         </View>
       </View>
     </LinearGradient>
@@ -84,6 +107,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default GerarGuia;
+export { resposta };
