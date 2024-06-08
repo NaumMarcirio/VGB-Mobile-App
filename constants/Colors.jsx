@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 export default {
   pretoBase: "#323232",
   pretoFraco: "#404040",
