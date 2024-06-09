@@ -80,4 +80,4 @@ const createTableLista = () => {
     inserirOuAtualizarLista()
 };
 
-export { db, createTable, createTableJson };
+export { db, createTable, createTableJson, createTableLista };
