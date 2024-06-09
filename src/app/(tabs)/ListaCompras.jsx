@@ -50,8 +50,9 @@ const ListaCompras = () => {
                 color={Colors.verdeBase}
               />
               <View style={styles.containerTexto}>
-                <Text style={item.marcado? styles.itemTextoM: styles.itemTexto}>{item.nome}</Text>
-                <Text style={item.marcado? styles.quantidadeTextoM:styles.quantidadeTexto}>{item.quantidade}</Text>
+
+                <Text style={item.marcado ? styles.itemTextoM : styles.itemTexto}>{item.nome}</Text>
+                <Text style={item.marcado ? styles.quantidadeTextoM : styles.quantidadeTexto}>{item.quantidade}</Text>
               </View>
             </View>
           )}
@@ -99,18 +100,15 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderRadius: 10,
     backgroundColor: 'transparent',
-  
   },
-  containerTexto:{
+  containerTexto: {
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     width: '80%'
   },
   itemTexto: {
     marginLeft: 10,
-    color: Colors.brancoBase,
-    
-
+    color: Colors.brancoBase
   },
   itemTextoM: {
     marginLeft: 10,
@@ -120,18 +118,20 @@ const styles = StyleSheet.create({
   },
   quantidadeTexto: {
     marginLeft: 10,
-    color:  Colors.brancoBase
+    color: Colors.brancoBase
   },
   quantidadeTextoM: {
     marginLeft: 10,
-    color:  Colors.verdeBase,
+    color: Colors.verdeBase,
+
     textDecorationLine: 'line-through',
   },
   ScrollViewContainer: {
     width: '80%',
     backgroundColor: 'transparent',
-    top:'30%',
-    
+
+    top: '30%',
+
   },
 });
 

@@ -59,7 +59,7 @@ const FormularioHistorico = () => {
           style={styles.inputMaior}
           color={Colors.brancoBase}
           inputMode="text"
-          placeholder="Ex: Hipertenção"
+          placeholder="Ex: Hipertenção, diabetes, avc"
           placeholderTextColor={Colors.cinzaBase} // Define a cor do placeholder
           textAlignVertical="top" // Alinha o texto verticalmente para o topo
         />

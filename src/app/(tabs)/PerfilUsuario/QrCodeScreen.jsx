@@ -4,6 +4,9 @@ import Colors from "../../../../constants/Colors";
 import Header from "../../../../components/Header";
 import Botoes from "../../../../components/Botoes";
 import { useRouter } from "expo-router";
+import React from "react";
+import QRCode from "react-native-qrcode-svg";
+
 
 const QrCodeScreen = () => {
   const router = useRouter();
@@ -19,10 +22,10 @@ const QrCodeScreen = () => {
       <View style={styles.container}>
         <Header ativo={true} />
         <Text style={styles.textoQrCode}>Alterar dados</Text>
-        <Image
-          source={require("../../../../assets/images/ic_round-qr-code-2.png")}
-          style={styles.imagemQrCode}
-        />
+        <QRCode value="PerfilUsuario/InfoGerais"
+        submit = {handleSubmit}
+        ></QRCode>
+
         <View style={styles.botaoQRCODE}>
           <Botoes
             texto="Ler QR Code"
