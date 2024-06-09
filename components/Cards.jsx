@@ -25,9 +25,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>8 am</Text>
+          <Text style={item.manha.marcado?styles.horaM: styles.hora}>8 am</Text>
         </View>
-        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.manha.prato}</Text>
+        <Text style={item.manha.marcado?styles.pratoM: styles.prato}>{item.manha.prato}</Text>
         <View style={styles.check}>
           <Checkbox
             status={item.tarde.marcado ? 'checked' : 'unchecked'}
@@ -35,9 +35,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>12 pm</Text>
+          <Text style={item.tarde.marcado?styles.horaM: styles.hora}>12 pm</Text>
         </View>
-        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.tarde.prato}</Text>
+        <Text style={item.tarde.marcado?styles.pratoM: styles.prato}>{item.tarde.prato}</Text>
 
         <View style={styles.check}>
           <Checkbox
@@ -46,9 +46,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>4 pm</Text>
+          <Text style={item.noite.marcado?styles.horaM: styles.hora}>4 pm</Text>
         </View>
-        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.noite.prato}</Text>
+        <Text style={item.noite.marcado?styles.pratoM: styles.prato}>{item.noite.prato}</Text>
 
         <View style={styles.check}>
           <Checkbox
