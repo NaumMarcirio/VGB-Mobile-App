@@ -25,9 +25,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={styles.hora}>8 am</Text>
+          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>8 am</Text>
         </View>
-        <Text style={styles.prato}>{item.manha.prato}</Text>
+        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.manha.prato}</Text>
         <View style={styles.check}>
           <Checkbox
             status={item.tarde.marcado ? 'checked' : 'unchecked'}
@@ -35,9 +35,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={styles.hora}>12 pm</Text>
+          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>12 pm</Text>
         </View>
-        <Text style={styles.prato}>{item.tarde.prato}</Text>
+        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.tarde.prato}</Text>
 
         <View style={styles.check}>
           <Checkbox
@@ -46,9 +46,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={styles.hora}>4 pm</Text>
+          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>4 pm</Text>
         </View>
-        <Text style={styles.prato}>{item.noite.prato}</Text>
+        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.noite.prato}</Text>
 
         <View style={styles.check}>
           <Checkbox
@@ -57,9 +57,9 @@ const Cards = () => {
             uncheckedColor={Colors.brancoBase}
             color={Colors.verdeBase}
           />
-          <Text style={styles.hora}>8 pm</Text>
+          <Text style={item.ceia.marcado?styles.horaM: styles.hora}>8 pm</Text>
         </View>
-        <Text style={styles.prato}>{item.ceia.prato}</Text>
+        <Text style={item.ceia.marcado?styles.pratoM: styles.prato}>{item.ceia.prato}</Text>
       </View>
     );
   };
@@ -99,11 +99,27 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
   },
+  pratoM: {
+    color: Colors.verdeBase,
+    fontSize: 14,
+    fontFamily: 'KodChasanMedium',
+    marginHorizontal: 40,
+    marginTop: 10,
+    marginBottom: 20,
+    textDecorationLine: 'line-through'
+  },
   hora: {
     color: Colors.brancoBase,
     fontSize: 14,
     fontFamily: 'KodChasanBold',
     margin: 10,
+  },
+  horaM:{
+    color: Colors.verdeBase,
+    fontSize: 14,
+    fontFamily: 'KodChasanBold',
+    margin: 10,
+    textDecorationLine: 'line-through'
   },
   check: {
     flexDirection: 'row',
