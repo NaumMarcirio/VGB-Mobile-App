@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Bjson_texto } from "../variaveis";
+import { Bjson_texto, Bjson_ingredientes } from "../variaveis";
 
 const ReadJSONScreen = () => {
   let [refeicoes, setRefeicoes] = useState(null);
@@ -15,9 +15,16 @@ const ReadJSONScreen = () => {
       console.error('Erro ao carregar refeições:', error);
     }
   };
-
+  const carregarDadosDaLista = async () => {
+    try{
+      Bjson_ingredientes = "{'ingredientes': {'Pão': {'quantidade': '8 fatias','marcado': 0},'Presunto': {'quantidade': '150g','marcado': 0},'Arroz': {'quantidade': '1 kg','marcado': 0},'Feijão': {'quantidade': '500g','marcado': 0},'Peito de frango': {'quantidade': '500g','marcado': 0},'Maçãs': {'quantidade': '6 unidades','marcado': 0},'Cenoura': {'quantidade': '3 unidades','marcado': 0},'Abobrinha': {'quantidade': '1 unidade','marcado': 0},'Batata': {'quantidade': '3 unidades','marcado': 0},'Caldo de galinha': {'quantidade': '2 cubos','marcado': 0},'Leite': {'quantidade': '1 litro','marcado': 0},'Pão de queijo': {'quantidade': '10 unidades','marcado': 0},'Macarrão': {'quantidade': '500g','marcado': 0},'Molho de tomate': {'quantidade': '500ml','marcado': 0},'Filé de peixe': {'quantidade': '300g','marcado': 0},'Brócolis': {'quantidade': '1 maço','marcado': 0},'Alface': {'quantidade': '1 maço','marcado': 0},'Tomate': {'quantidade': '5 unidades','marcado': 0},'Pepino': {'quantidade': '1 unidade','marcado': 0},'Ovos': {'quantidade': '1 dúzia','marcado': 0},'Cebola': {'quantidade': '2 unidades','marcado': 0},'Pimentão': {'quantidade': '1 unidade','marcado': 0},'Iogurte natural': {'quantidade': '1 pote grande','marcado': 0},'Massa de pizza': {'quantidade': '1 unidade','marcado': 0},'Queijo para pizza': {'quantidade': '200g','marcado': 0},'Arroz integral': {'quantidade': '500g','marcado': 0},'Atum em lata': {'quantidade': '1 lata','marcado': 0},'Pão para sanduíche': {'quantidade': '8 unidades','marcado': 0},'Café': {'quantidade': '250g','marcado': 0},'Farinha de trigo': {'quantidade': '500g','marcado': 0},'Mel': {'quantidade': '200g','marcado': 0},'Carne para churrasco': {'quantidade': '500g','marcado': 0},'Linguiça': {'quantidade': '300g','marcado': 0},'Espetinhos de vegetais': {'quantidade': '1 pacote','marcado': 0},'Carvão': {'quantidade': '1 saco','marcado': 0},'Frutas variadas para salada': {'quantidade': 'a gosto','marcado': 0},'Massa para molho de tomate': {'quantidade': '500g','marcado': 0},'Alga para sushi': {'quantidade': '1 pacote','marcado': 0},'Arroz para sushi': {'quantidade': '500g','marcado': 0},'Cogumelos': {'quantidade': '200g','marcado': 0},'Arroz arbóreo': {'quantidade': '500g','marcado': 0},'Caldo de legumes': {'quantidade': '1 cubo','marcado': 0}}}"
+    } catch(error){
+      console.error('Erro ao carregar lista de compras:', error);
+    }
+  }
   useEffect(() => {
     carregarRefeicoes();
+    carregarDadosDaLista();
   }, []);
 
   if (!refeicoes) {

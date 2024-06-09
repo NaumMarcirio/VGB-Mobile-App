@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { inserirOuAtualizarUsuario, carregarDadosDoUsuario } from './variaveis';
+import {inserirOuAtualizarUsuario, carregarDadosDoUsuario, carregarDadosDaLista} from './variaveis';
 
 const db = SQLite.openDatabase('infos.db');
 
@@ -37,7 +37,7 @@ const createTable = () => {
 const createTableJson = () => {
     db.transaction(tx => {
         tx.executeSql(
-            `CREATE TABLE IF NOT EXISTS jsons_refeicoes (
+            `CREATE TABLE IF NOT EXISTS json_refeicoes (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         json_texto TEXT,
         usuario_id INTEGER,
@@ -55,6 +55,29 @@ const createTableJson = () => {
 
     carregarDadosDoJson()
     inserirOuAtualizarJson()
+};
+const createTableLista = () => {
+    db.transaction(tx => {
+        tx.executeSql(
+            `CREATE TABLE IF NOT EXISTS json_lista (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        json_ingrediente TEXT,
+        usuario_id INTEGER,
+        check BOOLEAN,
+        FOREIGN KEY(usuario_id) REFERENCES usuario(ID)
+      );`,
+            [],
+            (_, result) => {
+                console.log('Tabela de listas criada com sucesso!');
+            },
+            (_, error) => {
+                console.log('Erro ao criar tabela de listas:', error);
+            }
+        );
+    });
+
+    carregarDadosDaLista()
+    inserirOuAtualizarLista()
 };
 
 export { db, createTable, createTableJson };

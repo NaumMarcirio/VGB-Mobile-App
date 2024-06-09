@@ -12,10 +12,23 @@ let Bcalorias = "";
 let Bhistorico_medico = "";
 let Bintolerancias = "";
 let Bexcluir_alimentos = "";
-let Brefeicao_usuario_id = "";
+let Brefeicao_usuario_id = 1;
 let Bjson_texto = "";
-let Brefeicao_id = "";
+let Brefeicao_id = 1;
+let Bjson_ingredientes = "";
+let Blista_id  = 1;
+let Blista_usuario_id = 1;
 
+
+function BsetJsonIngredientes(newJsonIngredientes) {
+  Bjson_ingredientes = newJsonIngredientes;
+}
+function BsetListaUsuarioId(newListaUsuarioId) {
+    Blista_usuario_id = newListaUsuarioId;
+}
+function BsetListaId(newListaId) {
+    Blista_id = newListaId;
+}
 function BsetRefeicaoId(newRefId) {
   Brefeicao_id = newRefId;
 }
@@ -168,6 +181,7 @@ async function carregarDadosDoJson() {
           [],
           (_, { rows: { _array } }) => {
             if (_array.length > 0) {
+              const json_refeicoes = _array[0]; // Supondo que haja apenas um json no banco de dados
               Brefeicao_id = json_refeicoes.ID;
               Brefeicao_usuario_id = json_refeicoes.usuario_id;
               Bjson_texto = json_refeicoes.json_texto;
@@ -224,6 +238,71 @@ async function inserirOuAtualizarJson() {
   }
 }
 
+async function carregarDadosDaLista() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_lista",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              const json_lista = _array[0]; // Supondo que haja apenas um usuário no banco de dados
+              Blista_id = json_lista.ID;
+              Blista_usuario_id = json_lista.usuario_id;
+              Bjson_ingredientes = json_lista.json_ingredientes;
+              console.log("Selecionado os dados");
+              console.log(Blista_usuario_id, Bjson_ingredientes);
+            } else {
+              console.log("Nenhum Json encontrado no banco de dados.");
+              Blista_usuario_id = "";
+              Bjson_ingredientes = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do json:", error);
+          }
+      );
+    });
+  } catch (error) {
+    console.error("Erro ao carregar dados do json:", error);
+  }
+}
+async function inserirOuAtualizarLista() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_lista",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              tx.executeSql(
+                  `UPDATE json_lista SET json_ingredientes = ? WHERE usuario_id = ?`,
+                  [Bjson_ingredientes, Blista_usuario_id],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados da lista:", error)
+              );
+            } else {
+              // Se o Json não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO json_lista (json_ingredientes) WHERE usuario_id = ? VALUES (?)`,
+                  [Brefeicao_usuario_id, Bjson_texto],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do Json:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência da lista:", error);
+          }
+      );
+    });
+    console.log("Dados do jsob inseridos/atualizados com sucesso.");
+    carregarDadosDaLista();
+  } catch (error) {
+    console.error("Erro ao inserir/atualizar dados da lista:", error);
+  }
+}
+
 export {
   Bid,
   Bnome,
@@ -240,6 +319,9 @@ export {
   Bjson_texto,
   Brefeicao_usuario_id,
   Brefeicao_id,
+  Bjson_ingredientes,
+  Blista_id,
+  Blista_usuario_id,
   BsetId,
   BsetNome,
   BsetIdade,
@@ -258,5 +340,10 @@ export {
   carregarDadosDoUsuario,
   inserirOuAtualizarUsuario,
   carregarDadosDoJson,
-  inserirOuAtualizarJson
+  inserirOuAtualizarJson,
+  carregarDadosDaLista,
+  inserirOuAtualizarLista,
+  BsetJsonIngredientes,
+  BsetListaUsuarioId,
+  BsetListaId
 };
