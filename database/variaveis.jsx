@@ -78,45 +78,45 @@ async function carregarDadosDoUsuario() {
   try {
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM usuario",
-        [],
-        (_, { rows: { _array } }) => {
-          if (_array.length > 0) {
-            const usuario = _array[0]; // Supondo que haja apenas um usuário no banco de dados
-            Bid = usuario.ID;
-            Bnome = usuario.Nome;
-            Bidade = usuario.Idade;
-            Baltura = usuario.Altura;
-            Bpeso = usuario.Peso;
-            Bgenero = usuario.Genero;
-            Bnivel_de_atividade = usuario.NivelDeAtividade;
-            Bgordura = usuario.Gordura;
-            Bcalorias = usuario.Calorias;
-            Bhistorico_medico = usuario.HistoricoMedico;
-            Bintolerancias = usuario.Intolerancias;
-            Bexcluir_alimentos = usuario.ExcluirAlimentos;
+          "SELECT * FROM usuario",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              const usuario = _array[0]; // Supondo que haja apenas um usuário no banco de dados
+              Bid = usuario.ID;
+              Bnome = usuario.Nome;
+              Bidade = usuario.Idade;
+              Baltura = usuario.Altura;
+              Bpeso = usuario.Peso;
+              Bgenero = usuario.Genero;
+              Bnivel_de_atividade = usuario.NivelDeAtividade;
+              Bgordura = usuario.Gordura;
+              Bcalorias = usuario.Calorias;
+              Bhistorico_medico = usuario.HistoricoMedico;
+              Bintolerancias = usuario.Intolerancias;
+              Bexcluir_alimentos = usuario.ExcluirAlimentos;
 
-            console.log("Selecionado os dados");
-            console.log(Bid, Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos);
-          } else {
-            console.log("Nenhum usuário encontrado no banco de dados.");
-            Bid = 1;
-            Bnome = "";
-            Bidade = "";
-            Baltura = "";
-            Bpeso = "";
-            Bgenero = "";
-            Bnivel_de_atividade = "";
-            Bgordura = "";
-            Bcalorias = "";
-            Bhistorico_medico = "";
-            Bintolerancias = "";
-            Bexcluir_alimentos = "";
+              console.log("Selecionado os dados");
+              console.log(Bid, Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos);
+            } else {
+              console.log("Nenhum usuário encontrado no banco de dados.");
+              Bid = 1;
+              Bnome = "";
+              Bidade = "";
+              Baltura = "";
+              Bpeso = "";
+              Bgenero = "";
+              Bnivel_de_atividade = "";
+              Bgordura = "";
+              Bcalorias = "";
+              Bhistorico_medico = "";
+              Bintolerancias = "";
+              Bexcluir_alimentos = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do usuário:", error);
           }
-        },
-        error => {
-          console.error("Erro ao carregar dados do usuário:", error);
-        }
       );
     });
   } catch (error) {
@@ -128,30 +128,30 @@ async function inserirOuAtualizarUsuario() {
   try {
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM usuario",
-        [],
-        (_, { rows: { _array } }) => {
-          if (_array.length > 0) {
-            // Se o usuário já existe, atualize seus dados
-            tx.executeSql(
-              `UPDATE usuario SET Nome = ?, Idade = ?, Altura = ?, Peso = ?, Genero = ?, NivelDeAtividade = ?, Gordura = ?, Calorias = ?, HistoricoMedico = ?, Intolerancias = ?, ExcluirAlimentos = ?`,
-              [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
-              () => console.log("Atualizado no banco"),
-              error => console.error("Erro ao atualizar dados do usuário:", error)
-            );
-          } else {
-            // Se o usuário não existe, insira os dados
-            tx.executeSql(
-              `INSERT INTO usuario (Nome, Idade, Altura, Peso, Genero, NivelDeAtividade, Gordura, Calorias, HistoricoMedico, Intolerancias, ExcluirAlimentos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-              [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
-              () => console.log("Inserido no banco"),
-              error => console.error("Erro ao inserir dados do usuário:", error)
-            );
+          "SELECT * FROM usuario",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              // Se o usuário já existe, atualize seus dados
+              tx.executeSql(
+                  `UPDATE usuario SET Nome = ?, Idade = ?, Altura = ?, Peso = ?, Genero = ?, NivelDeAtividade = ?, Gordura = ?, Calorias = ?, HistoricoMedico = ?, Intolerancias = ?, ExcluirAlimentos = ?`,
+                  [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados do usuário:", error)
+              );
+            } else {
+              // Se o usuário não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO usuario (Nome, Idade, Altura, Peso, Genero, NivelDeAtividade, Gordura, Calorias, HistoricoMedico, Intolerancias, ExcluirAlimentos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                  [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do usuário:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência do usuário:", error);
           }
-        },
-        error => {
-          console.error("Erro ao verificar a existência do usuário:", error);
-        }
       );
     });
     console.log("Dados do usuário inseridos/atualizados com sucesso.");
@@ -180,12 +180,12 @@ async function carregarDadosDoJson() {
             }
           },
           error => {
-            console.error("Erro ao carregar dados do usuário:", error);
+            console.error("Erro ao carregar dados do json:", error);
           }
       );
     });
   } catch (error) {
-    console.error("Erro ao carregar dados do usuário:", error);
+    console.error("Erro ao carregar dados do json:", error);
   }
 }
 async function inserirOuAtualizarJson() {
@@ -213,14 +213,14 @@ async function inserirOuAtualizarJson() {
             }
           },
           error => {
-            console.error("Erro ao verificar a existência do usuário:", error);
+            console.error("Erro ao verificar a existência do jsob:", error);
           }
       );
     });
-    console.log("Dados do usuário inseridos/atualizados com sucesso.");
-    carregarDadosDoUsuario();
+    console.log("Dados do jsob inseridos/atualizados com sucesso.");
+    carregarDadosDoJson();
   } catch (error) {
-    console.error("Erro ao inserir/atualizar dados do usuário:", error);
+    console.error("Erro ao inserir/atualizar dados do json:", error);
   }
 }
 
