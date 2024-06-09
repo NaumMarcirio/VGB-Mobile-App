@@ -1,123 +1,123 @@
 const dataRefeicoes = [
     {
         "manha": {
-            "prato": "Pão com presunto",
+            "prato": "Vitamina de frutas com aveia",
             "marcado": false
         },
         "tarde": {
-            "prato": "Arroz, feijão e frango",
+            "prato": "Salada de quinoa com legumes",
             "marcado": false
         },
         "noite": {
-            "prato": "Sopa de legumes",
+            "prato": "Sopa de abóbora com frango",
             "marcado": false
         },
         "ceia": {
-            "prato": "Creme de milho",
+            "prato": "Iogurte sem lactose com chia",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Café com leite e pão de queijo",
+            "prato": "Tapioca com queijo branco",
             "marcado": false
         },
         "tarde": {
-            "prato": "Macarrão com molho de tomate",
+            "prato": "Frango grelhado com batata doce",
             "marcado": false
         },
         "noite": {
-            "prato": "Iogurte",
+            "prato": "Salada de legumes com azeite de oliva",
             "marcado": false
         },
         "ceia": {
-            "prato": "Gelatina",
+            "prato": "Gelatina sem lactose",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Vitamina de frutas",
+            "prato": "Café preto com pão de mandioca",
             "marcado": false
         },
         "tarde": {
-            "prato": "Feijoada",
+            "prato": "Arroz integral com carne moída",
             "marcado": false
         },
         "noite": {
-            "prato": "Barrinha de cereal",
+            "prato": "Peito de frango com legumes cozidos",
             "marcado": false
         },
         "ceia": {
-            "prato": "Bolo de banana",
+            "prato": "Mousse de maracujá sem lactose",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Omelete com vegetais",
+            "prato": "Omelete com espinafre",
             "marcado": false
         },
         "tarde": {
-            "prato": "Salada de frango com quinoa",
+            "prato": "Lentilhas com legumes",
             "marcado": false
         },
         "noite": {
-            "prato": "Iogurte natural",
+            "prato": "Sopa de lentilhas",
             "marcado": false
         },
         "ceia": {
-            "prato": "Pudim de chocolate",
+            "prato": "Iogurte de soja com aveia",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Café da manhã completo",
+            "prato": "Café com leite de amêndoas e pão sem glúten",
             "marcado": false
         },
         "tarde": {
-            "prato": "Frango com arroz integral",
+            "prato": "Hambúrguer de frango com salada",
             "marcado": false
         },
         "noite": {
-            "prato": "Sanduíche de atum",
+            "prato": "Sopa de legumes com quinoa",
             "marcado": false
         },
         "ceia": {
-            "prato": "Mousse de maracujá",
+            "prato": "Pudim de chia sem lactose",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Panquecas com mel",
+            "prato": "Panquecas de banana com mel",
             "marcado": false
         },
         "tarde": {
-            "prato": "Churrasco",
+            "prato": "Peito de peru com purê de batata",
             "marcado": false
         },
         "noite": {
-            "prato": "Salada de frutas",
+            "prato": "Salada de grão de bico com atum",
             "marcado": false
         },
         "ceia": {
-            "prato": "Torta de limão",
+            "prato": "Gelatina de frutas sem lactose",
             "marcado": false
         }
     },
     {
         "manha": {
-            "prato": "Tapioca recheada",
+            "prato": "Smoothie de abacate com coco",
             "marcado": false
         },
         "tarde": {
-            "prato": "Sushi",
+            "prato": "Wrap de frango com alface",
             "marcado": false
         },
         "noite": {
-            "prato": "Crepe",
+            "prato": "Sopa de legumes com carne",
             "marcado": false
         },
         "ceia": {
