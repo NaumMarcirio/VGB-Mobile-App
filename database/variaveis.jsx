@@ -12,6 +12,32 @@ let Bcalorias = "";
 let Bhistorico_medico = "";
 let Bintolerancias = "";
 let Bexcluir_alimentos = "";
+let Brefeicao_usuario_id = 1;
+let Bjson_texto = "";
+let Brefeicao_id = 1;
+let Bjson_ingredientes = "";
+let Blista_id  = 1;
+let Blista_usuario_id = 1;
+
+
+function BsetJsonIngredientes(newJsonIngredientes) {
+  Bjson_ingredientes = newJsonIngredientes;
+}
+function BsetListaUsuarioId(newListaUsuarioId) {
+    Blista_usuario_id = newListaUsuarioId;
+}
+function BsetListaId(newListaId) {
+    Blista_id = newListaId;
+}
+function BsetRefeicaoId(newRefId) {
+  Brefeicao_id = newRefId;
+}
+function BsetJsonTexto(newJsonTexto) {
+  Bjson_texto = newJsonTexto;
+}
+function BsetUsuarioId(newUsuarioId) {
+  Brefeicao_usuario_id = newUsuarioId;
+}
 
 function BsetId(newId) {
   Bid = newId;
@@ -65,45 +91,45 @@ async function carregarDadosDoUsuario() {
   try {
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM usuario",
-        [],
-        (_, { rows: { _array } }) => {
-          if (_array.length > 0) {
-            const usuario = _array[0]; // Supondo que haja apenas um usuário no banco de dados
-            Bid = usuario.ID;
-            Bnome = usuario.Nome;
-            Bidade = usuario.Idade;
-            Baltura = usuario.Altura;
-            Bpeso = usuario.Peso;
-            Bgenero = usuario.Genero;
-            Bnivel_de_atividade = usuario.NivelDeAtividade;
-            Bgordura = usuario.Gordura;
-            Bcalorias = usuario.Calorias;
-            Bhistorico_medico = usuario.HistoricoMedico;
-            Bintolerancias = usuario.Intolerancias;
-            Bexcluir_alimentos = usuario.ExcluirAlimentos;
+          "SELECT * FROM usuario",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              const usuario = _array[0]; // Supondo que haja apenas um usuário no banco de dados
+              Bid = usuario.ID;
+              Bnome = usuario.Nome;
+              Bidade = usuario.Idade;
+              Baltura = usuario.Altura;
+              Bpeso = usuario.Peso;
+              Bgenero = usuario.Genero;
+              Bnivel_de_atividade = usuario.NivelDeAtividade;
+              Bgordura = usuario.Gordura;
+              Bcalorias = usuario.Calorias;
+              Bhistorico_medico = usuario.HistoricoMedico;
+              Bintolerancias = usuario.Intolerancias;
+              Bexcluir_alimentos = usuario.ExcluirAlimentos;
 
-            console.log("Selecionado os dados");
-            console.log(Bid, Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos);
-          } else {
-            console.log("Nenhum usuário encontrado no banco de dados.");
-            Bid = 1;
-            Bnome = "";
-            Bidade = "";
-            Baltura = "";
-            Bpeso = "";
-            Bgenero = "";
-            Bnivel_de_atividade = "";
-            Bgordura = "";
-            Bcalorias = "";
-            Bhistorico_medico = "";
-            Bintolerancias = "";
-            Bexcluir_alimentos = "";
+              console.log("Selecionado os dados");
+              console.log(Bid, Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos);
+            } else {
+              console.log("Nenhum usuário encontrado no banco de dados.");
+              Bid = 1;
+              Bnome = "";
+              Bidade = "";
+              Baltura = "";
+              Bpeso = "";
+              Bgenero = "";
+              Bnivel_de_atividade = "";
+              Bgordura = "";
+              Bcalorias = "";
+              Bhistorico_medico = "";
+              Bintolerancias = "";
+              Bexcluir_alimentos = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do usuário:", error);
           }
-        },
-        error => {
-          console.error("Erro ao carregar dados do usuário:", error);
-        }
       );
     });
   } catch (error) {
@@ -115,36 +141,165 @@ async function inserirOuAtualizarUsuario() {
   try {
     db.transaction(tx => {
       tx.executeSql(
-        "SELECT * FROM usuario",
-        [],
-        (_, { rows: { _array } }) => {
-          if (_array.length > 0) {
-            // Se o usuário já existe, atualize seus dados
-            tx.executeSql(
-              `UPDATE usuario SET Nome = ?, Idade = ?, Altura = ?, Peso = ?, Genero = ?, NivelDeAtividade = ?, Gordura = ?, Calorias = ?, HistoricoMedico = ?, Intolerancias = ?, ExcluirAlimentos = ?`,
-              [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
-              () => console.log("Atualizado no banco"),
-              error => console.error("Erro ao atualizar dados do usuário:", error)
-            );
-          } else {
-            // Se o usuário não existe, insira os dados
-            tx.executeSql(
-              `INSERT INTO usuario (Nome, Idade, Altura, Peso, Genero, NivelDeAtividade, Gordura, Calorias, HistoricoMedico, Intolerancias, ExcluirAlimentos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-              [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
-              () => console.log("Inserido no banco"),
-              error => console.error("Erro ao inserir dados do usuário:", error)
-            );
+          "SELECT * FROM usuario",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              // Se o usuário já existe, atualize seus dados
+              tx.executeSql(
+                  `UPDATE usuario SET Nome = ?, Idade = ?, Altura = ?, Peso = ?, Genero = ?, NivelDeAtividade = ?, Gordura = ?, Calorias = ?, HistoricoMedico = ?, Intolerancias = ?, ExcluirAlimentos = ?`,
+                  [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados do usuário:", error)
+              );
+            } else {
+              // Se o usuário não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO usuario (Nome, Idade, Altura, Peso, Genero, NivelDeAtividade, Gordura, Calorias, HistoricoMedico, Intolerancias, ExcluirAlimentos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                  [Bnome, Bidade, Baltura, Bpeso, Bgenero, Bnivel_de_atividade, Bgordura, Bcalorias, Bhistorico_medico, Bintolerancias, Bexcluir_alimentos],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do usuário:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência do usuário:", error);
           }
-        },
-        error => {
-          console.error("Erro ao verificar a existência do usuário:", error);
-        }
       );
     });
     console.log("Dados do usuário inseridos/atualizados com sucesso.");
     carregarDadosDoUsuario();
   } catch (error) {
     console.error("Erro ao inserir/atualizar dados do usuário:", error);
+  }
+}
+async function carregarDadosDoJson() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_refeicoes",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              const json_refeicoes = _array[0]; // Supondo que haja apenas um json no banco de dados
+              Brefeicao_id = json_refeicoes.ID;
+              Brefeicao_usuario_id = json_refeicoes.usuario_id;
+              Bjson_texto = json_refeicoes.json_texto;
+              console.log("Selecionado os dados");
+              console.log(Brefeicao_usuario_id, Bjson_texto);
+            } else {
+              console.log("Nenhum Json encontrado no banco de dados.");
+              Brefeicao_usuario_id = "";
+              Bjson_texto = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do json:", error);
+          }
+      );
+    });
+  } catch (error) {
+    console.error("Erro ao carregar dados do json:", error);
+  }
+}
+async function inserirOuAtualizarJson() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_refeicoes",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              tx.executeSql(
+                  `UPDATE json_refeicoes SET json_texto = ? WHERE usuario_id = ?`,
+                  [Bjson_texto, Brefeicao_usuario_id],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados do Json:", error)
+              );
+            } else {
+              // Se o Json não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO json_refeicoes (json_texto) WHERE usuario_id = ? VALUES (?)`,
+                  [Brefeicao_usuario_id, Bjson_texto],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do Json:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência do jsob:", error);
+          }
+      );
+    });
+    console.log("Dados do jsob inseridos/atualizados com sucesso.");
+    carregarDadosDoJson();
+  } catch (error) {
+    console.error("Erro ao inserir/atualizar dados do json:", error);
+  }
+}
+
+async function carregarDadosDaLista() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_lista",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              const json_lista = _array[0]; // Supondo que haja apenas um usuário no banco de dados
+              Blista_id = json_lista.ID;
+              Blista_usuario_id = json_lista.usuario_id;
+              Bjson_ingredientes = json_lista.json_ingredientes;
+              console.log("Selecionado os dados");
+              console.log(Blista_usuario_id, Bjson_ingredientes);
+            } else {
+              console.log("Nenhum Json encontrado no banco de dados.");
+              Blista_usuario_id = "";
+              Bjson_ingredientes = "";
+            }
+          },
+          error => {
+            console.error("Erro ao carregar dados do json:", error);
+          }
+      );
+    });
+  } catch (error) {
+    console.error("Erro ao carregar dados do json:", error);
+  }
+}
+async function inserirOuAtualizarLista() {
+  try {
+    db.transaction(tx => {
+      tx.executeSql(
+          "SELECT * FROM json_lista",
+          [],
+          (_, { rows: { _array } }) => {
+            if (_array.length > 0) {
+              tx.executeSql(
+                  `UPDATE json_lista SET json_ingredientes = ? WHERE usuario_id = ?`,
+                  [Bjson_ingredientes, Blista_usuario_id],
+                  () => console.log("Atualizado no banco"),
+                  error => console.error("Erro ao atualizar dados da lista:", error)
+              );
+            } else {
+              // Se o Json não existe, insira os dados
+              tx.executeSql(
+                  `INSERT INTO json_lista (json_ingredientes) WHERE usuario_id = ? VALUES (?)`,
+                  [Brefeicao_usuario_id, Bjson_texto],
+                  () => console.log("Inserido no banco"),
+                  error => console.error("Erro ao inserir dados do Json:", error)
+              );
+            }
+          },
+          error => {
+            console.error("Erro ao verificar a existência da lista:", error);
+          }
+      );
+    });
+    console.log("Dados do jsob inseridos/atualizados com sucesso.");
+    carregarDadosDaLista();
+  } catch (error) {
+    console.error("Erro ao inserir/atualizar dados da lista:", error);
   }
 }
 
@@ -161,6 +316,12 @@ export {
   Bhistorico_medico,
   Bintolerancias,
   Bexcluir_alimentos,
+  Bjson_texto,
+  Brefeicao_usuario_id,
+  Brefeicao_id,
+  Bjson_ingredientes,
+  Blista_id,
+  Blista_usuario_id,
   BsetId,
   BsetNome,
   BsetIdade,
@@ -173,6 +334,16 @@ export {
   BsetHistoricoMedico,
   BsetIntolerancias,
   BsetExcluirAlimentos,
+  BsetJsonTexto,
+  BsetUsuarioId,
+  BsetRefeicaoId,
   carregarDadosDoUsuario,
-  inserirOuAtualizarUsuario
+  inserirOuAtualizarUsuario,
+  carregarDadosDoJson,
+  inserirOuAtualizarJson,
+  carregarDadosDaLista,
+  inserirOuAtualizarLista,
+  BsetJsonIngredientes,
+  BsetListaUsuarioId,
+  BsetListaId
 };
