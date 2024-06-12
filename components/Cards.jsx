@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import dataRefeicoes from '../database/refeicoes';
 import { Checkbox } from 'react-native-paper';
+import { buscaRefeicoes } from '../database/buscaRefeicoes';
 
 import Colors from '../constants/Colors';
 
+
+
+
 const Cards = () => {
+
+  // useEffect(() => {
+  //   buscaRefeicoes()
+  // }, []);
+
   const [refeicoes, setRefeicoes] = useState(dataRefeicoes);
 
   const toggleCheckbox = (refeicaoIndex, periodo) => {

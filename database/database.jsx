@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import {inserirOuAtualizarUsuario, carregarDadosDoUsuario, carregarDadosDaLista} from './variaveis';
+import { inserirOuAtualizarUsuario, carregarDadosDoUsuario, carregarDadosDaLista } from './variaveis';
 
 const db = SQLite.openDatabase('infos.db');
 
@@ -80,4 +80,25 @@ const createTableLista = () => {
     inserirOuAtualizarLista()
 };
 
-export { db, createTable, createTableJson, createTableLista };
+
+const refeicoes = () => {
+    db.transaction(tx => {
+        tx.executeSql(
+            `CREATE TABLE IF NOT EXISTS refeicoes (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        texto TEXT,
+        status char(1)
+      );`,
+            [],
+            (_, result) => {
+                console.log('Tabela de reifecoes criada com sucesso!');
+            },
+            (_, error) => {
+                console.log('Erro ao criar tabela de reifecoes:', error);
+            }
+        );
+    });
+
+};
+
+export { db, createTable, createTableJson, createTableLista, refeicoes };
