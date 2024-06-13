@@ -35,7 +35,7 @@ const ListaCompras = () => {
       <View style={styles.container}>
         <Header ativo={true} />
         <JanelaAtual titulo="Lista de Compras" />
-      </View>
+      
       <View style={styles.ScrollViewContainer}>
         <FlatList style={styles.flatList}
           data={itens}
@@ -56,7 +56,7 @@ const ListaCompras = () => {
           )}
           keyExtractor={(item) => item.id}
         />
-
+      </View>
       </View>
     </LinearGradient>
   );
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   containerTitulos: {
     alignItems: 'center',
@@ -127,9 +125,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   ScrollViewContainer: {
-    width: '80%',
+    width: '105%',
     backgroundColor: 'transparent',
-    top: '30%',
+    top: '5%',
 
   },
 });
