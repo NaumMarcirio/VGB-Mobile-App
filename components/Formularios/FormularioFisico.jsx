@@ -54,6 +54,7 @@ const FormularioFisico = () => {
               justifyContent: "space-between",
               paddingTop: 12,
               alignItems: "center",
+              
             }}
             boxStyle={{
               borderTopLeftRadius: 0,
