@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Header from "../../../../components/Header";
@@ -9,7 +9,8 @@ import { useRouter } from "expo-router";
 import { ActivityIndicator } from 'react-native-paper';
 import { fetchChatGPTResponse } from '../../../../components/requisicaoGPT/ChamaApi'
 import { inserirRefeicao } from "../../../../database/insetRefeicoes";
-import { buscaRefeicoes } from "../../../../database/buscaRefeicoes";
+import { inserirLista } from "../../../../database/insertLista";
+import { refeicoes } from '../../../../database/database';
 import {
   Bidade,
   Baltura,
@@ -26,37 +27,56 @@ import {
 
 
 const GerarGuia = () => {
-  carregarDadosDoUsuario()
+
+  let novasRefeicoes = [];
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const key = '';
-  const prompt = `Gere um plano alimentar para exatos 1 dias de pratos diversificados, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}. Gere um objeto JavaScript seguindo o seguinte formato alterando os pratos de forma diversificada 
-  "const dataRefeicoes = [
-    {
-        "manha": {
-            "prato": "ex prato 1",
-            "marcado": false
-        },
-        "tarde": {
-            "prato": "ex prato 2",
-            "marcado": false
-        },
-        "noite": {
-            "prato": "ex prato 3",
-            "marcado": false
-        },
-        "ceia": {
-            "prato": "ex prato 4",
-            "marcado": false
-        }
-    },
-    ...]`;
+  const prompt1 = `Gere um plano alimentar para 1 dia de pratos bem diversificados e fora do comum, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}. Em forma de lista na seguinte formatação
+  "Café da manhã:
+    -quantidade de cada item e exemplo de refeição "2 ovos mexidos, 100 gramas de tilapia"
+
+  Lanche da manhã:
+    -quantidade de cada item e exemplo de refeição
+
+  Almoço:
+    -quantidade de cada item e exemplo de refeição
+  
+  Lanche da tarde:
+    -quantidade de cada item e exemplo de refeição
+  
+  Jantar:
+    -quantidade de cada item e exemplo de refeição
+
+  Ceia:
+    -quantidade de cada item e exemplo de refeição`;
+
+
+  const prompt2 = `Vou ao mercado esse fim de semana, gere uma lista de compras juntando todos os itens iguais das minhas refeições "${novasRefeicoes}", nesse formato '
+  - Item1, 200g 
+  - item2, 5 unidades...'`;
+
+  useEffect(() => {
+    carregarDadosDoUsuario();
+  }, []);
 
   const handleSubmit = async () => {
+    refeicoes();
     setLoading(true);
     try {
-      console.log(prompt)
-      const data = await fetchChatGPTResponse(key, prompt);
+
+      for (let i = 0; i < 7; i++) {
+        const data1 = await fetchChatGPTResponse(key, prompt1);
+        await inserirRefeicao(data1.choices[0].message.content);
+        novasRefeicoes.push(data1.choices[0].message.content);
+      }
+
+      console.log(novasRefeicoes);
+      const data2 = await fetchChatGPTResponse(key, prompt2)
+
+      console.log("Inserindo na tabela lista ...");
+      await inserirLista(data2.choices[0].message.content);
+
 
     } catch (error) {
       console.error(error);
@@ -65,58 +85,6 @@ const GerarGuia = () => {
     }
     router.push(`GuiaAlimentar/GuiaAlimentar`)
   };
-
-
-  const handTetse = async () =>{
-    setLoading(true);
-    const prompt = `Gere um plano alimentar para exatos 1 dias de pratos diversificados, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}, gere em forma de lista` 
-    try{
-      //console.log(prompt)
-      //const data = await fetchChatGPTResponse(key, prompt);
-      //const ret = data.choices[0].message.content
-      const ret =`Plano alimentar para 1 dia:
-
-Café da manhã:
-- 2 ovos mexidos com 1 colher de sopa de queijo cottage
-- 1 fatia de pão integral
-- 1 xícara de chá verde
-
-Lanche da manhã:
-- 1 maçã
-
-Almoço:
-- 100g de peito de frango grelhado
-- 1/2 xícara de quinoa cozida
-- Salada de folhas verdes com tomate e pepino temperada com azeite e limão
-
-Lanche da tarde:
-- 1 iogurte natural desnatado
-
-Jantar:
-- 100g de salmão grelhado
-- 1/2 xícara de arroz integral
-- Brócolis cozidos no vapor
-
-Ceia:
-- 1 xícara de chá de camomila.`
-
-      console.log('----------------------------------------INSERIR--------------------------------------------------')
-      const a  = await inserirRefeicao(ret)
-      console.log(a)
-      console.log('-------------------------------------------------------------------------------------------------')     
-      console.log('----------------------------------------CARREGA--------------------------------------------------')
-      const b = await buscaRefeicoes()
-      console.log(b)
-      console.log('-------------------------------------------------------------------------------------------------')        
-    }
-    catch(err){
-      console.error(err)
-    }
-    finally{
-      setLoading(false);
-    }
-    router.push(`GuiaAlimentar/GuiaAlimentar`)
-  }
 
   return (
     <LinearGradient
@@ -133,7 +101,7 @@ Ceia:
               <Botoes
                 texto="Gerar Semana"
                 urlAnterior={""}
-                submit={handTetse}
+                submit={handleSubmit}
                 padding={100}
               />
               <Entypo name="dots-three-horizontal" size={24} color="white" />

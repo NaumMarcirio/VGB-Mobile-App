@@ -3,7 +3,6 @@ import { inserirOuAtualizarUsuario, carregarDadosDoUsuario, carregarDadosDaLista
 
 const db = SQLite.openDatabase('infos.db');
 
-// Função para criar a tabela se ainda não existir
 const createTable = () => {
     db.transaction(tx => {
         tx.executeSql(
@@ -34,52 +33,6 @@ const createTable = () => {
     carregarDadosDoUsuario()
     inserirOuAtualizarUsuario()
 };
-const createTableJson = () => {
-    db.transaction(tx => {
-        tx.executeSql(
-            `CREATE TABLE IF NOT EXISTS json_refeicoes (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        json_texto TEXT,
-        usuario_id INTEGER,
-        FOREIGN KEY(usuario_id) REFERENCES usuario(ID)
-      );`,
-            [],
-            (_, result) => {
-                console.log('Tabela de usuários criada com sucesso!');
-            },
-            (_, error) => {
-                console.log('Erro ao criar tabela de usuários:', error);
-            }
-        );
-    });
-
-    carregarDadosDoJson()
-    inserirOuAtualizarJson()
-};
-const createTableLista = () => {
-    db.transaction(tx => {
-        tx.executeSql(
-            `CREATE TABLE IF NOT EXISTS json_lista (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        json_ingrediente TEXT,
-        usuario_id INTEGER,
-        check BOOLEAN,
-        FOREIGN KEY(usuario_id) REFERENCES usuario(ID)
-      );`,
-            [],
-            (_, result) => {
-                console.log('Tabela de listas criada com sucesso!');
-            },
-            (_, error) => {
-                console.log('Erro ao criar tabela de listas:', error);
-            }
-        );
-    });
-
-    carregarDadosDaLista()
-    inserirOuAtualizarLista()
-};
-
 
 const refeicoes = () => {
     db.transaction(tx => {
@@ -101,4 +54,23 @@ const refeicoes = () => {
 
 };
 
-export { db, createTable, createTableJson, createTableLista, refeicoes };
+const lista = () => {
+    db.transaction(tx => {
+        tx.executeSql(
+            `CREATE TABLE IF NOT EXISTS lista (
+                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                texto TEXT
+            );`,
+            [],
+            (_, result) => {
+                console.log('Tabela de lista criada com sucesso!');
+            },
+            (_, error) => {
+                console.log('Erro ao criar tabela de lista:', error);
+            }
+        );
+    });
+};
+
+
+export { db, createTable, refeicoes, lista };

@@ -14,8 +14,8 @@ export const fetchChatGPTResponse = async (key, prompt) => {
                         content: prompt
                     }
                 ],
-                temperature: 0.30,
-                max_tokens: 500,
+                temperature: 0.80,
+                max_tokens: 250,
                 top_p: 1,
             })
         });

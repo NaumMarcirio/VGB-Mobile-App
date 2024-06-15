@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Header from "../../components/Header";
 import Botoes from "../../components/Botoes";
 import Colors from "../../constants/Colors";
-import { createTable, createTableJson, createTableLista, refeicoes } from '../../database/database';
+import { createTable, lista } from '../../database/database';
 import { useRouter } from "expo-router";
 import {
   Bnome,
@@ -15,9 +15,7 @@ const BoasVindas = () => {
 
   useEffect(() => {
     createTable();
-    refeicoes();
-    //createTableJson();
-    //createTableLista();
+    lista();
   }, []);
 
 

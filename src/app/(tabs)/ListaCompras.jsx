@@ -1,32 +1,33 @@
-
-import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../../components/Header';
 import Colors from '../../../constants/Colors';
-import React, { useState } from "react";
-import { Checkbox } from "react-native-paper";
-import ingredientesJSON from '../../../database/listaCompras.json';
+import React, { useState, useEffect } from "react";
+import { buscaLista } from '../../../database/buscaLista';
+
 import JanelaAtual from '../../../components/JanelaAtual';
 
 const ListaCompras = () => {
-  const [itens, setItens] = useState(() => {
-    const data = ingredientesJSON;
-    return Object.entries(data.ingredientes).map(([nome, { quantidade, marcado }]) => ({
-      nome,
-      quantidade,
-      marcado,
-      id: nome.toLowerCase().replace(/\s/g, "-")
-    }));
-  });
+  const [lista, setLista] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const marcarItem = (id) => {
-    setItens(itens.map((item) => {
-      if (item.id === id) {
-        return { ...item, marcado: !item.marcado };
-      }
-      return item;
-    }));
+  const fetchData = async () => {
+    try {
+      console.log("Buscando lista ...")
+      const data = await buscaLista();
+      console.log(data)
+      setLista(data);
+    } catch (error) {
+      console.error("Erro ao carregar dados da lista:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   return (
     <LinearGradient
@@ -37,29 +38,15 @@ const ListaCompras = () => {
         <Header ativo={true} />
         <JanelaAtual titulo="Lista de Compras" />
       </View>
-      <View style={styles.ScrollViewContainer}>
-        <FlatList style={styles.flatList}
-          data={itens}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-
-              <Checkbox
-                status={item.marcado ? 'checked' : 'unchecked'}
-                onPress={() => marcarItem(item.id)}
-                uncheckedColor={Colors.brancoBase}
-                color={Colors.verdeBase}
-              />
-              <View style={styles.containerTexto}>
-
-                <Text style={item.marcado ? styles.itemTextoM : styles.itemTexto}>{item.nome}</Text>
-                <Text style={item.marcado ? styles.quantidadeTextoM : styles.quantidadeTexto}>{item.quantidade}</Text>
-              </View>
-            </View>
-          )}
-          keyExtractor={(item) => item.id}
-        />
-
-      </View>
+      {lista === null ? ( // Verifica se lista é null
+        <Text style={styles.TextoCarregando}>° ° °</Text> // Mostra três pontos se lista é null
+      ) : (
+        <View style={styles.ScrollViewContainer}>
+          <ScrollView>
+            <Text style={styles.TextoLista}>{lista.texto}</Text>
+          </ScrollView>
+        </View>
+      )}
     </LinearGradient>
   );
 };
@@ -75,63 +62,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  containerTitulos: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 8,
-    gap: 12,
-  },
-  titulo: {
-    color: Colors.brancoBase,
-    fontFamily: 'KodChasanBold',
-    fontSize: 18,
-  },
-  subtitulo: {
-    color: Colors.cinzaBase,
-    fontFamily: 'KodChasanBold',
-    fontSize: 14,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderColor: '#bbb',
-    borderWidth: 0,
-    borderStyle: 'dashed',
-    borderRadius: 10,
-    backgroundColor: 'transparent',
-  },
-  containerTexto: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%'
-  },
-  itemTexto: {
-    marginLeft: 10,
-    color: Colors.brancoBase
-  },
-  itemTextoM: {
-    marginLeft: 10,
-    color: Colors.verdeBase,
-    textDecorationLine: 'line-through'
-
-  },
-  quantidadeTexto: {
-    marginLeft: 10,
-    color: Colors.brancoBase
-  },
-  quantidadeTextoM: {
-    marginLeft: 10,
-    color: Colors.verdeBase,
-
-    textDecorationLine: 'line-through',
-  },
   ScrollViewContainer: {
+    borderWidth: 1,
+    borderColor: Colors.brancoBase,
+    borderTopRightRadius: 24,
+    borderBottomLeftRadius: 24,
+    height: '60%',
     width: '80%',
-    backgroundColor: 'transparent',
-
-    top: '30%',
-
+    padding: 30,
+    marginBottom: 60,
+  },
+  TextoLista: {
+    color: Colors.brancoBase,
+    fontSize: 14,
+    fontFamily: 'KodChasanMedium',
+    margin: 10,
+  },
+  TextoCarregando: {
+    color: Colors.cinzaBase,
+    fontSize: 14,
+    fontFamily: 'KodChasanMedium',
+    position: "absolute",
+    top: '50%',
   },
 });
 

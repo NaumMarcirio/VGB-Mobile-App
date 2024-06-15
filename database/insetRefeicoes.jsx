@@ -6,7 +6,7 @@ export const inserirRefeicao = async (xRefeicao) => {
     db.transaction(tx => {
       tx.executeSql(
         `INSERT INTO refeicoes (texto, status) VALUES (?, ?)`,
-        [xRefeicao, 'N'],
+        [xRefeicao, '0'],
         () => console.log("Inserido no banco"),
         error => console.error("Erro ao inserir dados da refeicao:", error)
       );
