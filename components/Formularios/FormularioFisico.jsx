@@ -11,8 +11,8 @@ import {
   BsetNivelDeAtividade,
   BsetGordura,
   BsetCalorias,
-  inserirOuAtualizarUsuario
-} from '../../database/variaveis';
+  inserirOuAtualizarUsuario,
+} from "../../database/variaveis";
 
 const FormularioFisico = () => {
   const router = useRouter();
@@ -25,77 +25,78 @@ const FormularioFisico = () => {
   }, []);
 
   const handleSubmit = () => {
-    BsetNivelDeAtividade(nivelAtividade)
-    BsetGordura(gordura)
-    BsetCalorias(caloriasDiarias)
+    BsetNivelDeAtividade(nivelAtividade);
+    BsetGordura(gordura);
+    BsetCalorias(caloriasDiarias);
 
-    inserirOuAtualizarUsuario()
+    inserirOuAtualizarUsuario();
 
-    router.push(`PerfilUsuario/Historico`)
-
+    router.push(`PerfilUsuario/Historico`);
   };
 
   const nivelAtividadeDados = [
     { label: "Baixo", value: "Baixo" },
     { label: "Médio", value: "Medio" },
-    { label: "Alto", value: "Alto" }
+    { label: "Alto", value: "Alto" },
   ];
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerNivelAtividade}>
-
-        <Text style={styles.label}>Nivel de Atividade</Text>
-        <View>
-          <RadioButtonRN
-            circleSize={14}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingTop: 12,
-              alignItems: "center",
-            }}
-            boxStyle={{
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 24,
-              borderBottomLeftRadius: 24,
-              borderBottomRightRadius: 0,
-              width: 102,
-              gap: 12,
-              paddingLeft: 18,
-            }}
-            textStyle={{
-              fontFamily: "KodChasanMedium",
-              fontSize: 14,
-            }}
-            data={nivelAtividadeDados}
-            selectedBtn={(value) => setNivelAtividade(value.value)}
-            activeColor={Colors.vermelhoBase}
-            textColor={Colors.brancoBase}
-            boxActiveBgColor={"transparent"}
-            boxDeactiveBgColor={"transparent"}
+      <Text style={styles.tituloPagina}>Físico</Text>
+      <View>
+        <View style={styles.containerNivelAtividade}>
+          <Text style={styles.label}>Nivel de Atividade</Text>
+          <View>
+            <RadioButtonRN
+              circleSize={14}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingTop: 12,
+                alignItems: "center",
+              }}
+              boxStyle={{
+                borderTopLeftRadius: 0,
+                borderTopRightRadius: 24,
+                borderBottomLeftRadius: 24,
+                borderBottomRightRadius: 0,
+                width: 102,
+                gap: 12,
+                paddingLeft: 18,
+              }}
+              textStyle={{
+                fontFamily: "KodChasanMedium",
+                fontSize: 14,
+              }}
+              data={nivelAtividadeDados}
+              selectedBtn={(value) => setNivelAtividade(value.value)}
+              activeColor={Colors.vermelhoBase}
+              textColor={Colors.brancoBase}
+              boxActiveBgColor={"transparent"}
+              boxDeactiveBgColor={"transparent"}
+            />
+          </View>
+        </View>
+        <View style={styles.containerGordura}>
+          <Text style={styles.label}>% De Gordura</Text>
+          <TextInput
+            value={gordura.toString()}
+            onChangeText={setGordura}
+            style={styles.inputMaior}
+            color={Colors.brancoBase}
+            inputMode="numeric"
           />
         </View>
-      </View>
-      <View style={styles.containerGordura}>
-        <Text style={styles.label}>% De Gordura</Text>
-        <TextInput
-          value={gordura.toString()}
-          onChangeText={setGordura}
-          style={styles.inputMaior}
-          color={Colors.brancoBase}
-          inputMode="numeric"
-        />
-      </View>
-      <View style={styles.containerCaloriasDiarias}>
-        <Text style={styles.label}>Calorias Diárias</Text>
-        <TextInput
-          value={caloriasDiarias.toString()}
-          onChangeText={setCaloriasDiarias}
-          style={styles.inputMaior}
-          color={Colors.brancoBase}
-          inputMode="numeric"
-        />
+        <View style={styles.containerCaloriasDiarias}>
+          <Text style={styles.label}>Calorias Diárias</Text>
+          <TextInput
+            value={caloriasDiarias.toString()}
+            onChangeText={setCaloriasDiarias}
+            style={styles.inputMaior}
+            color={Colors.brancoBase}
+            inputMode="numeric"
+          />
+        </View>
       </View>
       <View style={styles.botao}>
         <Botoes
@@ -110,9 +111,13 @@ const FormularioFisico = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: 48,
-    gap: 12,
+  container: { paddingTop: 90 },
+
+  tituloPagina: {
+    marginLeft: 135,
+    color: Colors.brancoBase,
+    fontFamily: "KodChasanBold",
+    fontSize: 20,
   },
   containerNivelAtividade: {
     flexDirection: "column",
@@ -125,15 +130,18 @@ const styles = StyleSheet.create({
     paddingTop: 80,
   },
   botao: {
+    paddingTop: 1,
     alignSelf: "flex-end",
+    paddingTop: 570,
     position: "absolute",
-    bottom: -450,
+    paddingRight: 7,
   },
 
   containerCaloriasDiarias: {
     flexDirection: "row",
     alignItems: "center",
     paddingTop: 80,
+    paddingBottom: 150,
     justifyContent: "space-between",
   },
   inputMaior: {
@@ -146,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 18,
     paddingBottom: 4,
+    fontSize: 16,
   },
   inputMenor: {
     height: 20,
@@ -157,10 +166,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 18,
     paddingBottom: 4,
+    fontSize: 16,
   },
   label: {
     color: Colors.brancoBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
   },
   radioInput: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
@@ -29,9 +29,8 @@ import {
   BsetIntolerancias,
   BsetExcluirAlimentos,
   carregarDadosDoUsuario,
-  inserirOuAtualizarUsuario
-} from '../../database/variaveis';
-
+  inserirOuAtualizarUsuario,
+} from "../../database/variaveis";
 
 const FormularioHistorico = () => {
   const router = useRouter();
@@ -42,11 +41,11 @@ const FormularioHistorico = () => {
   }, []);
 
   const handleSubmit = () => {
-    BsetHistoricoMedico(historico)
+    BsetHistoricoMedico(historico);
 
-    inserirOuAtualizarUsuario()
+    inserirOuAtualizarUsuario();
 
-    router.push(`PerfilUsuario/ProblemasAlimentares`)
+    router.push(`PerfilUsuario/ProblemasAlimentares`);
   };
 
   return (
@@ -56,12 +55,28 @@ const FormularioHistorico = () => {
         <TextInput
           value={historico.toString()}
           onChangeText={setHistorico}
-          style={styles.inputMaior}
-          color={Colors.brancoBase}
+          placeholder="Ex: Hipertensão, diabetes, AVC"
+          placeholderTextColor={Colors.cinzaBase}
+          style={{
+            height: 250,
+            width: 300, // Alterado para preencher todo o espaço disponível
+            borderWidth: 1,
+            borderRightColor: Colors.brancoBase,
+            borderLeftColor: Colors.brancoBase,
+            borderTopColor: Colors.brancoBase,
+            borderBottomColor: Colors.brancoBase,
+            borderTopRightRadius: 24,
+            borderBottomLeftRadius: 24,
+            paddingLeft: 18,
+            paddingTop: 12,
+            paddingRight: 18, // Largura do input
+            textAlignVertical: "top",
+            fontSize: 16, // Alinha o texto verticalmente para o topo
+            color: Colors.brancoBase,
+          }}
+          multiline={true} // Permite várias linhas
+          numberOfLines={10}
           inputMode="text"
-          placeholder="Ex: Hipertenção, diabetes, avc"
-          placeholderTextColor={Colors.cinzaBase} // Define a cor do placeholder
-          textAlignVertical="top" // Alinha o texto verticalmente para o topo
         />
       </View>
       <View style={styles.botao}>
@@ -88,7 +103,7 @@ const styles = StyleSheet.create({
   botao: {
     alignSelf: "flex-end",
     position: "absolute",
-    bottom: -450
+    bottom: -450,
   },
   inputMaior: {
     height: 200,
@@ -102,11 +117,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 24,
     paddingLeft: 18,
     paddingTop: 12,
+    fontSize: 16,
   },
 
   label: {
     color: Colors.brancoBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
     paddingBottom: 30,
   },

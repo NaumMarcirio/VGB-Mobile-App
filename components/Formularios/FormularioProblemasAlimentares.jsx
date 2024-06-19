@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
@@ -6,24 +6,24 @@ import { useRouter } from "expo-router";
 import {
   Bintolerancias,
   BsetIntolerancias,
-  inserirOuAtualizarUsuario
-} from '../../database/variaveis';
+  inserirOuAtualizarUsuario,
+} from "../../database/variaveis";
 
 const FormularioProblemasAlimentares = () => {
   const router = useRouter();
-  const [problemasAlimentares, setProblemasAlimentares] = useState(Bintolerancias);
+  const [problemasAlimentares, setProblemasAlimentares] =
+    useState(Bintolerancias);
 
   useEffect(() => {
     inserirOuAtualizarUsuario();
   }, []);
 
   const handleSubmit = () => {
-    BsetIntolerancias(problemasAlimentares)
+    BsetIntolerancias(problemasAlimentares);
 
-    inserirOuAtualizarUsuario()
+    inserirOuAtualizarUsuario();
 
-    router.push(`PerfilUsuario/NaoIncluir`)
-
+    router.push(`PerfilUsuario/NaoIncluir`);
   };
 
   return (
@@ -39,6 +39,8 @@ const FormularioProblemasAlimentares = () => {
           placeholder="Ex: Lactose, glúten"
           placeholderTextColor={Colors.cinzaBase} // Define a cor do placeholder
           textAlignVertical="top" // Alinha o texto verticalmente para o topo
+          multiline={true}
+          numberOfLines={10}
         />
       </View>
       <View style={styles.botao}>
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     bottom: -450,
   },
   inputMaior: {
-    height: 200,
+    height: 250,
     width: 300, // Alterado para preencher todo o espaço disponível
     borderWidth: 1,
     borderRightColor: Colors.brancoBase,
@@ -79,11 +81,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 24,
     paddingLeft: 18,
     paddingTop: 12,
+    fontSize: 16,
   },
 
   label: {
     color: Colors.brancoBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
     paddingBottom: 30,
   },

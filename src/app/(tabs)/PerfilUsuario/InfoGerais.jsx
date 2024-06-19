@@ -15,7 +15,6 @@ const InfoGerais = () => {
     >
       <View style={styles.container}>
         <Header ativo={true} />
-        <JanelaAtual titulo="Gerais" />
         <FormularioGeral />
       </View>
     </LinearGradient>
@@ -26,11 +25,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+
   container: {
-    flex: 1,
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  tituloPagina: {
+    fontFamily: "KodChasanBold",
+    color: Colors.brancoBase,
+    fontSize: 20,
   },
 });
 export default InfoGerais;

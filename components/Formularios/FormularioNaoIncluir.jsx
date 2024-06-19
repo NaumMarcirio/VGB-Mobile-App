@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { TextInput, View, Text, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import Botoes from "../Botoes";
@@ -6,8 +6,8 @@ import { useRouter } from "expo-router";
 import {
   Bexcluir_alimentos,
   BsetExcluirAlimentos,
-  inserirOuAtualizarUsuario
-} from '../../database/variaveis';
+  inserirOuAtualizarUsuario,
+} from "../../database/variaveis";
 
 const FormularioNaoIncluir = () => {
   const router = useRouter();
@@ -18,11 +18,11 @@ const FormularioNaoIncluir = () => {
   }, []);
 
   const handleSubmit = () => {
-    BsetExcluirAlimentos(naoIncluir)
+    BsetExcluirAlimentos(naoIncluir);
 
-    inserirOuAtualizarUsuario()
+    inserirOuAtualizarUsuario();
 
-    router.push(`GuiaAlimentar`)
+    router.push(`GuiaAlimentar`);
   };
   return (
     <View style={styles.container}>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
 
   inputMaior: {
-    height: 200,
+    height: 250,
     width: 300, // Alterado para preencher todo o espaço disponível
     borderWidth: 1,
     borderRightColor: Colors.brancoBase,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 24,
     paddingLeft: 18,
     paddingTop: 12,
+    fontSize: 16,
   },
   botao: {
     alignSelf: "flex-end",
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: Colors.brancoBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
     paddingBottom: 30,
   },
