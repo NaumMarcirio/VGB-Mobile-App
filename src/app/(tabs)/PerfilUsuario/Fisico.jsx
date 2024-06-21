@@ -1,10 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import Botoes from "../../../../components/Botoes";
 import { LinearGradient } from "expo-linear-gradient";
 import Header from "../../../../components/Header";
 import Colors from "../../../../constants/Colors";
-import JanelaAtual from "../../../../components/JanelaAtual";
 import FormularioFisico from "../../../../components/Formularios/FormularioFisico";
 
 const Fisico = () => {
@@ -15,7 +13,6 @@ const Fisico = () => {
     >
       <View style={styles.container}>
         <Header ativo={true} />
-        <JanelaAtual titulo="Físico" />
         <FormularioFisico />
       </View>
     </LinearGradient>

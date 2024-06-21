@@ -1,6 +1,4 @@
-
 import { Stack } from "expo-router";
-
 
 const GuiaAlimentarNav = () => {
   return (
@@ -19,7 +17,6 @@ const GuiaAlimentarNav = () => {
         options={{ headerShown: false }}
         title={true}
       />
-
     </Stack>
   );
 };

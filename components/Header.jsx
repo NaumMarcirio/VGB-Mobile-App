@@ -1,9 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import Colors from "../constants/Colors";
-import {
-  Bnome,
-} from '../database/variaveis';
-
+import { Bnome } from "../database/variaveis";
 
 const Header = ({ ativo }) => {
   return (
@@ -23,9 +20,11 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     width: "100%",
-    top: 56,
+    top: 48,
     gap: 24,
     alignItems: "center",
+    flex: 1,
+    justifyContent: "flex-start",
     flexDirection: "row",
   },
   logo: {
