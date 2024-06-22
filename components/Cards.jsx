@@ -29,7 +29,7 @@ const Cards = () => {
   }, []);
 
   const endWeek = (refeicoes) => {
-    if (refeicoes.every((item) => item.status === "1")) {
+    if (refeicoes && refeicoes.every((item) => item.status === "1")) {
       console.log(true);
       dropRefeicoes();
       router.push(`GuiaAlimentar/GerarGuia`);
@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
   },
   prato: {
     color: Colors.brancoBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
     margin: 10,
   },
   pratoM: {
     color: Colors.verdeBase,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "KodChasanMedium",
     margin: 10,
     textDecorationLine: "line-through",
