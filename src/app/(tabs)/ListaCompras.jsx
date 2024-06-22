@@ -37,7 +37,7 @@ const ListaCompras = () => {
         <Header ativo={true} />
         <Text style={styles.tituloListaCompras}>Lista de Compras</Text>
       </View>
-      {lista === null ? ( // Verifica se lista é null
+      {lista === null ? (
         <Text style={styles.TextoCarregando}>° ° °</Text> // Mostra três pontos se lista é null
       ) : (
         <View style={styles.ScrollViewContainer}>

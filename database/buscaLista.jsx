@@ -5,7 +5,7 @@ export const buscaLista = async () => {
     try {
       db.transaction(tx => {
         tx.executeSql(
-          "SELECT * FROM lista ORDER BY ID DESC LIMIT 1",
+          "SELECT * FROM lista ORDER BY ID DESC",
           [],
           (_, { rows: { _array } }) => {
             if (_array.length > 0) {

@@ -30,7 +30,7 @@ const GerarGuia = () => {
   let novasRefeicoes = [];
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const key = "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";
+  const key = "";
   const prompt1 = `Gere um plano alimentar para 1 dia de pratos bem diversificados e fora do comum, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}. Em forma de lista seguindo a exata formatação sem nada a mais.
   "Café da manhã:
     -quantidade de cada item e exemplo de refeição "2 ovos mexidos, 100 gramas de tilapia"
@@ -45,9 +45,7 @@ const GerarGuia = () => {
     -quantidade de cada item e exemplo de refeição
 `;
 
-  const prompt2 = `Vou ao mercado esse fim de semana, gere uma lista de compras juntando todos os itens iguais das minhas refeições "${novasRefeicoes}", nesse formato '
-  - Item1, 200g 
-  - item2, 5 unidades...'`;
+  const prompt2 = `segue minhas refeições da semana, voce pode gerar apenas uma lista de compras pra mim agrupando itens iguais e colocando a quantidade tambem "${novasRefeicoes}"`;
 
   useEffect(() => {
     carregarDadosDoUsuario();
@@ -64,7 +62,7 @@ const GerarGuia = () => {
       }
 
       console.log(novasRefeicoes);
-      const data2 = await fetchChatGPTResponse(key, prompt2, 300);
+      const data2 = await fetchChatGPTResponse(key, prompt2, 1000);
 
       console.log("Inserindo na tabela lista ...");
       await inserirLista(data2.choices[0].message.content);
@@ -124,11 +122,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 190, // Ajuste para o título ficar mais embaixo
+    paddingTop: 190,
   },
   containerBotao: {
     alignItems: "center",
-    justifyContent: "center", // Centraliza verticalmente
+    justifyContent: "center",
     flex: 1,
     paddingBottom: 130,
   },
@@ -136,13 +134,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 110, // Centraliza verticalmente o ActivityIndicator
+    marginBottom: 110,
   },
   titulo: {
     color: Colors.brancoBase,
     fontSize: 20,
     fontFamily: "KodChasanBold",
-    // Ajuste para o título ficar mais embaixo
   },
 });
 
