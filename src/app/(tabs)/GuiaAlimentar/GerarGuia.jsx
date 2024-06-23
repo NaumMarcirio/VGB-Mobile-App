@@ -30,7 +30,7 @@ const GerarGuia = () => {
   let novasRefeicoes = [];
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const key = "";
+  const key = "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";
   const prompt1 = `Gere um plano alimentar para 1 dia de pratos bem diversificados e fora do comum, para um(a) ${Bgenero} com ${Bidade} anos, ${Baltura} cm, ${Bpeso} kg, que tem um nível de atividade ${Bnivel_de_atividade}, ${Bgordura}% de gorduras totais e deve consumir ${Bcalorias} cal por dia. Histórico medico: ${Bhistorico_medico}. Intolerâncias: ${Bintolerancias}. Excluir do plano alimentar: ${Bexcluir_alimentos}. Em forma de lista seguindo a exata formatação sem nada a mais.
   "Café da manhã:
     -quantidade de cada item e exemplo de refeição "2 ovos mexidos, 100 gramas de tilapia"

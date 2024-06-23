@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
 
   container: {
     width: "80%",
-    justifyContent: "center",
     alignItems: "center",
   },
   tituloPagina: {
