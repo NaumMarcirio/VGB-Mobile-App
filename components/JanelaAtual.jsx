@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: -380,
+    marginTop: "30%",
   },
   textContainer: {
     flex: 1,

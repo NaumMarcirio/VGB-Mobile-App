@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Dimensions , ScrollView } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { Checkbox } from "react-native-paper";
 import { buscaRefeicoes } from "../database/buscaRefeicoes";
@@ -7,6 +7,7 @@ import { updateRefeicoes } from "../database/updateRefeicoes";
 import { dropRefeicoes } from "../database/dropRefeicoes";
 import { useRouter } from "expo-router";
 import Colors from "../constants/Colors";
+
 
 const Cards = () => {
   const router = useRouter();
@@ -51,9 +52,11 @@ const Cards = () => {
   const renderItem = ({ item, id }) => {
     return (
       <View style={styles.cardContainer}>
+        <ScrollView>
         <Text style={item.status === "1" ? styles.pratoM : styles.prato}>
           {item.texto}
         </Text>
+        </ScrollView>
         <View style={styles.checkboxArea}>
           <Checkbox
             status={item.status === "1" ? "checked" : "unchecked"}
@@ -67,6 +70,7 @@ const Cards = () => {
   };
 
   return (
+
     <View style={styles.container}>
       <Carousel
         layout="default"
@@ -74,6 +78,7 @@ const Cards = () => {
         renderItem={renderItem}
         sliderWidth={Dimensions.get("window").width}
         itemWidth={Dimensions.get("window").width * 0.8}
+        
       />
     </View>
   );
@@ -90,9 +95,11 @@ const styles = StyleSheet.create({
     borderColor: Colors.brancoBase,
     borderTopRightRadius: 24,
     borderBottomLeftRadius: 24,
-    top: "48%",
+    top: "10%",
     padding: 20,
+    maxHeight:"85%" ,
   },
+
   prato: {
     color: Colors.brancoBase,
     fontSize: 16,
