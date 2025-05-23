@@ -4,8 +4,47 @@ import Header from "../../../components/Header";
 import Colors from "../../../constants/Colors";
 import React, { useState, useEffect } from "react";
 import { buscaLista } from "../../../database/buscaLista";
-
 import JanelaAtual from "../../../components/JanelaAtual";
+
+// Builder fluente para compor a tela
+class ScreenBuilder {
+  constructor() {
+    this.elements = [];
+  }
+  withHeader(props) {
+    this.elements.push(<Header key="header" {...props} />);
+    return this;
+  }
+  withTitulo(texto, styles) {
+    this.elements.push(
+      <Text key="titulo" style={styles.tituloListaCompras}>
+        {texto}
+      </Text>
+    );
+    return this;
+  }
+  withLista(lista, styles) {
+    if (lista === null) {
+      this.elements.push(
+        <Text key="carregando" style={styles.TextoCarregando}>
+          ° ° °
+        </Text>
+      );
+    } else {
+      this.elements.push(
+        <View key="scroll" style={styles.ScrollViewContainer}>
+          <ScrollView>
+            <Text style={styles.TextoLista}>{lista.texto}</Text>
+          </ScrollView>
+        </View>
+      );
+    }
+    return this;
+  }
+  build() {
+    return this.elements;
+  }
+}
 
 const ListaCompras = () => {
   const [lista, setLista] = useState([]);
@@ -28,24 +67,18 @@ const ListaCompras = () => {
     fetchData();
   }, []);
 
+  const content = new ScreenBuilder()
+    .withHeader({ ativo: true })
+    .withTitulo("Lista de Compras", styles)
+    .withLista(lista, styles)
+    .build();
+
   return (
     <LinearGradient
       colors={[Colors.grdienteInicio, Colors.gradienteFim]}
       style={styles.containerGlobal}
     >
-      <View style={styles.container}>
-        <Header ativo={true} />
-        <Text style={styles.tituloListaCompras}>Lista de Compras</Text>
-      </View>
-      {lista === null ? (
-        <Text style={styles.TextoCarregando}>° ° °</Text> // Mostra três pontos se lista é null
-      ) : (
-        <View style={styles.ScrollViewContainer}>
-          <ScrollView>
-            <Text style={styles.TextoLista}>{lista.texto}</Text>
-          </ScrollView>
-        </View>
-      )}
+      <View style={styles.container}>{content}</View>
     </LinearGradient>
   );
 };

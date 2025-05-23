@@ -45,7 +45,31 @@ const GerarGuia = () => {
     -quantidade de cada item e exemplo de refeição
 `;
 
-  const prompt2 = `segue minhas refeições da semana, voce pode gerar apenas uma lista de compras pra mim agrupando itens iguais e colocando a quantidade tambem "${novasRefeicoes}"`;
+  // Crie uma classe para o fluxo fluente
+  class GuiaAlimentarBuilder {
+    constructor(key, prompt1, prompt2) {
+      this.key = key;
+      this.prompt1 = prompt1;
+      this.prompt2 = prompt2;
+      this.novasRefeicoes = [];
+    }
+
+    async gerarRefeicoes(qtd = 7) {
+      for (let i = 0; i < qtd; i++) {
+        const data = await fetchChatGPTResponse(this.key, this.prompt1, 200);
+        await inserirRefeicao(data.choices[0].message.content);
+        this.novasRefeicoes.push(data.choices[0].message.content);
+      }
+      return this;
+    }
+
+    async gerarLista() {
+      const promptLista = `segue minhas refeições da semana, voce pode gerar apenas uma lista de compras pra mim agrupando itens iguais e colocando a quantidade tambem "${this.novasRefeicoes}"`;
+      const data = await fetchChatGPTResponse(this.key, promptLista, 1000);
+      await inserirLista(data.choices[0].message.content);
+      return this;
+    }
+  }
 
   useEffect(() => {
     carregarDadosDoUsuario();
@@ -55,17 +79,9 @@ const GerarGuia = () => {
     refeicoes();
     setLoading(true);
     try {
-      for (let i = 0; i < 7; i++) {
-        const data1 = await fetchChatGPTResponse(key, prompt1, 200);
-        await inserirRefeicao(data1.choices[0].message.content);
-        novasRefeicoes.push(data1.choices[0].message.content);
-      }
-
-      console.log(novasRefeicoes);
-      const data2 = await fetchChatGPTResponse(key, prompt2, 1000);
-
-      console.log("Inserindo na tabela lista ...");
-      await inserirLista(data2.choices[0].message.content);
+      await new GuiaAlimentarBuilder(key, prompt1, prompt2)
+        .gerarRefeicoes()
+        .then((builder) => builder.gerarLista());
     } catch (error) {
       console.error(error);
     } finally {
